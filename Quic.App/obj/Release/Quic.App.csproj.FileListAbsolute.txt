@@ -1,0 +1,11 @@
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\bin\Release\Quic.App.exe.config
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\bin\Release\Quic.App.exe
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\bin\Release\Quic.App.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\bin\Release\Quic.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\bin\Release\Quic.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\obj\Release\Quic.App.csprojResolveAssemblyReference.cache
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\obj\Release\Quic.App.Properties.Resources.resources
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\obj\Release\Quic.App.csproj.GenerateResource.Cache
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\obj\Release\Quic.App.exe
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\obj\Release\Quic.App.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\obj\Release\Quic.App.QuicBar.resources

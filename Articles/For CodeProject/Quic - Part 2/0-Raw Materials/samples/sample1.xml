@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<html xmlns="Quic.Bootstrap.dll"
+      xmlns:core="Quic.Core.dll"
+      xmlns:ColorProvider="Quic.Core.dll:ColorProvider"
+      xmlns:String="Quic.Core.dll:String"
+      xmlns:StringProvider="Quic.Core.dll:StringProvider"
+      
+      IgnoreAttributeCase="false"
+      OutputFile="{core:HtmlFile sample.html}">
+
+  <head>
+    <UseBootstrap />
+    <ColorProvider Key="cp" />
+    <StringProvider Key="sp" />
+    <?php 
+      a php PI in head
+      var $var = new Array();
+    ?>
+  </head>
+  <body>
+    <Form Build="Local" Orientation="Vertical" Icon="Icon.png">
+      <!-- Hidden Comment -->
+      <!--out: Output Comment -->
+      <?php 
+        a php PI in body
+        var $var = new Array();
+      ?>
+      <Menu Text="Awesome Menu" Collapsible="true" Theme="dark" Position="fixedtop">
+        <!--
+        <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+        <MI Link="">{@sp Second SubMenu Item}</MI>
+        <MI Link="">{StringProvider Third SubMenu Item}</MI>
+        <Divider />
+        <MI Link="">{String Fourth SubMenu Item}</MI>
+    
+        <DropMenu Text="DropDown Menu" GlyphIcon="thumbs-up" DropStyle="down">
+          
+            <Header Text="Just under a divider" />
+            <MI Link="" GlyphIcon="user">First SubMenu Item</MI>
+            <MI Link="">{@sp Second SubMenu Item}</MI>
+            <MI Link="">{StringProvider Third SubMenu Item}</MI>
+            <Divider />
+            <MI Link="">{String Fourth SubMenu Item}</MI>
+          
+        </DropMenu>
+        -->
+        Signed in as <Link>Thomas</Link>
+        <Button>Navbar Button</Button>
+      </Menu>
+      
+      <br /><br /><br /><br />
+
+      <p>Tabs Example</p>
+      <Nav>
+        <NI State="active">Home</NI>
+        <NI>SVN</NI>
+        <NI>iOS</NI>
+        <NI>VB.NET</NI>
+        <NI>Java</NI>
+        <NI>PHP</NI>
+      </Nav>
+      
+      <p>Pills Example</p>
+      <Nav Type="Pills">
+        <NI>Home</NI>
+        <NI State="active">SVN</NI>
+        <NI>iOS</NI>
+        <NI>VB.NET</NI>
+        <NI>Java</NI>
+        <NI>PHP</NI>
+      </Nav>
+      
+      <p>Vertical Pills Example</p>
+      <Nav Type="vert-pills">
+        <NI>Home</NI>
+        <NI>SVN</NI>
+        <NI State="active">iOS</NI>
+        <NI>VB.NET</NI>
+        <NI>Java</NI>
+        <NI>PHP</NI>
+      </Nav>
+      
+      <p>Justified Pills Example</p>
+      <Nav Type="just-pills">
+        <NI>Home</NI>
+        <NI>SVN</NI>
+        <NI>iOS</NI>
+        <NI State="active">VB.NET</NI>
+        <NI>Java</NI>
+        <NI>PHP</NI>
+      </Nav>
+        
+      <p>Justified Tabs Example</p>
+      <Nav Type="tabs-just">
+        <NI>Home</NI>
+        <NI>SVN</NI>
+        <NI>iOS</NI>
+        <NI>VB.NET</NI>
+        <NI State="active">Java</NI>
+        <NI>PHP</NI>
+      </Nav>
+      
+      <p>Disabled Tab Example</p>
+      <Nav>
+        <NI State="disabled">Home</NI>
+        <NI>SVN</NI>
+        <NI>iOS</NI>
+        <NI>VB.NET</NI>
+        <NI>Java</NI>
+        <NI State="active">PHP</NI>
+      </Nav>
+      
+      <p>Disabled Pill Example</p>
+      <Nav Type="Pills">
+        <NI State="active">Home</NI>
+        <NI State="disabled">SVN</NI>
+        <NI>iOS</NI>
+        <NI>VB.NET</NI>
+        <NI>Java</NI>
+        <NI>PHP</NI>
+      </Nav>
+      
+      <p>Tabs With DropDown Example</p>
+      <Nav>
+        <NI>Home</NI>
+        <NI>SVN</NI>
+        <NI>iOS</NI>
+        <NI>VB.NET</NI>
+        <DropMenu Text="Java" DropStyle="down" State="active">
+          
+            <Header Text="Just under a divider" />
+            <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+            <MI Link="">{@sp Second SubMenu Item}</MI>
+            <MI Link="">{StringProvider Third SubMenu Item}</MI>
+            <Divider />
+            <MI Link="">{String Fourth SubMenu Item}</MI>
+          
+        </DropMenu>
+        <NI>PHP</NI>
+      </Nav>
+      
+      <p>Pills With DropDown Example</p>
+      <Nav Type="Pills">
+        <NI State="active">Home</NI>
+        <NI>SVN</NI>
+        <NI>iOS</NI>
+        <NI>VB.NET</NI>
+        <DropMenu Text="Java" DropStyle="down">
+          
+            <Header Text="Just under a divider" />
+            <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+            <MI Link="">{@sp Second SubMenu Item}</MI>
+            <MI Link="">{StringProvider Third SubMenu Item}</MI>
+            <Divider />
+            <MI Link="">{String Fourth SubMenu Item}</MI>
+          
+        </DropMenu>
+        <NI>PHP</NI>
+      </Nav>
+      
+      <Breadcrumb>
+        <BI>2012</BI>
+        <BI>2013</BI>
+        <BI>2014</BI>
+        <BI State="active">2015</BI>
+        <BI>2016</BI>
+      </Breadcrumb>
+      
+      <Table Text="Awesome Table" GlyphIcon="thumbs-up" Bordered="true" Condensed="{$Bordered}" Hover="{$Bordered}" Striped="{$Bordered}">
+        <THead>
+          <TR>
+            <TH Context="Active">
+              Name
+            </TH>
+            <TH Context="Danger">
+              City
+            </TH>
+            <TH Context="Success">
+              Pincode
+            </TH>
+          </TR>
+        </THead>
+      
+        <TBody>
+          <TR>
+            <TD Context="Active">
+              <ButtonToolbar IsFormControl="false">
+                <ButtonGroup ButtonSize="xs">
+                  <Button GlyphIcon="align-left">
+                    <b>Align Left</b></Button>
+                  <Button GlyphIcon="align-justify">Align Justify</Button>
+                  <Button GlyphIcon="align-right">Align Right</Button>
+                </ButtonGroup>
+                <ButtonGroup ButtonSize="sm">
+                  <Button GlyphIcon="thumbs-up" />
+                  <Button GlyphIcon="thumbs-down" />
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button GlyphIcon="arrow-left" ButtonType="primary" />
+                  <Button GlyphIcon="arrow-right" ButtonType="primary" />
+                  <Button GlyphIcon="arrow-up" ButtonType="primary" />
+                  <Button GlyphIcon="arrow-down" ButtonType="primary"/>
+                  <!--<ButtonGroup>-->
+                  <DropButton ButtonType="primary" DropStyle="up">
+                    <Drop>
+                      <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+                      <MI Link="">{@sp Second SubMenu Item}</MI>
+                      <MI Link="">{StringProvider Third SubMenu Item}</MI>
+                      <Divider />
+                      <MI Link="">{String Fourth SubMenu Item}</MI>
+                    </Drop>
+                  </DropButton>
+                  <!--</ButtonGroup>-->
+                </ButtonGroup>
+                <ButtonGroup>
+                  <!--<ButtonGroup>-->
+                  <SplitButton Text="Split" ButtonType="info"  DropStyle="up">
+                    <Drop>
+                      <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+                      <MI Link="">{@sp Second SubMenu Item}</MI>
+                      <MI Link="">{StringProvider Third SubMenu Item}</MI>
+                      <Divider />
+                      <MI Link="">{String Fourth SubMenu Item}</MI>
+                    </Drop>
+                  </SplitButton>
+                  <!--</ButtonGroup>-->
+                </ButtonGroup>
+              </ButtonToolbar>
+            </TD>
+            <TD  Context="Danger">
+              Bengalore
+            </TD>
+            <TD Context="Success">
+              560001
+            </TD>
+          </TR>
+          <TR Context="Active">
+            <TD>
+              <Button Prepend="@" Append="$">Bangalore</Button>
+            </TD>
+            <TD>
+              Mumbai
+            </TD>
+            <TD>
+              400003
+            </TD>
+          </TR>
+          <TR  Context="Danger">
+            <TD>
+              <Button Name="btn1" Text="My First Button"  ButtonType="danger" ng-model="angularJsModel" />
+            </TD>
+            <TD>
+              <DropButton GlyphIcon="thumbs-up"  DropStyle="up">
+                <Drop Align="right">
+                  <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+                  <MI Link="">{@sp Second SubMenu Item}</MI>
+                  <MI Link="">{StringProvider Third SubMenu Item}</MI>
+                  <Divider />
+                  <MI Link="">{String Fourth SubMenu Item}</MI>
+                </Drop>
+              </DropButton>
+            </TD>
+            <TD>
+              411027
+            </TD>
+          </TR>
+          <TR Context="Success">
+            <TD>
+              <DropButton Text="{$btn1.Text}" ButtonType="success" IsFormControl="true"  DropStyle="up">
+                <Drop Align="right">
+                  <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+                  <MI Link="">{@sp Second SubMenu Item}</MI>
+                  <MI Link="">{StringProvider Third SubMenu Item}</MI>
+                  <Divider />
+                  <Header Text="Just under a divider" />
+                  <MI Link="">{String Fourth SubMenu Item}</MI>
+                </Drop>
+              </DropButton>
+            </TD>
+            <TD>
+              <Button Text="{?$btn5.Text}" ButtonType="success" ng-model="angularJsModel" />
+            </TD>
+            <TD>
+              123456
+            </TD>
+          </TR>
+          <TR>
+            <TD Context="Normal">
+              <Button Text="{$btn1.Text}" ButtonType="Normal" ng-model="angularJsModel" />
+            </TD>
+            <TD Context="Success">
+              <DropButton Text="{?$btn5.Text}" ButtonType="success" IsFormControl="true">
+                <Drop>
+                  <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+                  <MI Link="">{@sp Second SubMenu Item}</MI>
+                  <MI Link="">{StringProvider Third SubMenu Item}</MI>
+                  <Divider />
+                  <MI Link="">{String Fourth SubMenu Item}</MI>
+                </Drop>
+              </DropButton>
+            </TD>
+            <TD Context="Warning">
+              <Label GlyphIcon="thumbs-up">109876</Label>
+            </TD>
+          </TR>
+        </TBody>
+      </Table>
+
+      <Grid>
+        <Row>
+          <Column Span="25%">
+            <Group Validation="has-error" >
+              <FilePicker IsFormControl="true"/>
+              <TextBox Hint="Enter your name here" GlyphIcon="bell" />
+              <TextBox Hint="Enter your password here" Type="Password" />
+              <TextArea Hint="About me">{$btn1.Text}</TextArea>
+            </Group>
+          </Column>
+        
+          <Column Span="25%">
+            <Select>
+              <SelectItem>1</SelectItem>
+              <SelectItem>2</SelectItem>
+              <SelectItem>3</SelectItem>
+              <SelectItem>4</SelectItem>
+            </Select>
+      
+            <Select Multiple="true" GlyphIcon="thumbs-up">
+              <SelectItem GlyphIcon="thumbs-up">1</SelectItem>
+              <SelectItem>2</SelectItem>
+              <SelectItem>3</SelectItem>
+              <SelectItem>4</SelectItem>
+            </Select>
+          </Column>
+      
+          <Column Span="50%">
+            <Row>
+              <Column Span="6">
+                <Check Text="{$btn1.Text}" GlyphIcon="thumbs-up" />
+                <Check Text="{?$btn5.Text}" Checked="true" Disabled="true" />
+                <Radio Text="{$btn1.Text}" Group="grp1" GlyphIcon="thumbs-up" />
+                <Radio Text="{?$btn5.Text}" Group="grp1" Checked="true" Disabled="true" />
+                <Radio Text="{$btn1.Text}" IsFormControl="true" />
+                <Radio Text="{?$btn5.Text}" Checked="true" IsFormControl="true" Disabled="true" />
+              </Column>
+              <Column Span="6">
+                <Panel Disabled="true" >
+                  <Button Text="{$btn1.Text}" InputSize="sm" ButtonType="info" IsFormControl="false" />
+                  <Link Text="ABC.XYZ" InputSize="lg" IsFormControl="false" Link="abc.xyz" />
+                </Panel>
+                <LinkButton Text="ABC.XYZ" InputSize="lg" IsFormControl="true" Link="http://abc.xyz" />
+                <Button Name="btn5" Text="My Fifth Button" InputSize="lg" ButtonSize="lg" IsBlock="true" ButtonType="primary" 
+                        GlyphIcon="bell" />
+              </Column>
+            </Row>
+          </Column>
+        </Row>
+
+        <Row>
+          <Column Span="4">
+            <Image Name="img1" Source="3d_-_Blue_Thorns.jpg" Hint="image 1" Text="I love images" ImageStyle="Circle" />
+          </Column>
+          <Column Span="4">
+            <Image Name="img1Abs" Source="C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.App\Tests\3d_-_Blue_Thorns.jpg" 
+                   Hint="image 1 Absolute" Text="I love absolute images" ImageStyle="Rounded" />
+          </Column>
+          <Column Span="4">
+            <Image Name="img2" Source="C:\Users\frank\Pictures\3D Sturvz\8cee69ab40.jpg" 
+                   Hint="image 2" Text="I love images too" ImageStyle="thumbnail" />
+          </Column>
+        </Row>
+      </Grid>
+      
+      <FilePicker Append="!" Prepend="Choose An Awesom File"/>
+      <Check Text="Prepend" Prepend="#" GlyphIcon="thumbs-up" />
+      <Check Text="Append" Append="@" Checked="true" Disabled="true" />
+      <Radio Text="Both" Prepend="#" Append="yeah" Group="grp1" GlyphIcon="thumbs-up" />
+      <Label Append="!" Prepend="Read Me:" Text="I am an awesome label"/>
+      <TextBox Append="?" Prepend="Ask anything:" Hint="I am waiting"/>
+      <TextArea Append="?" Prepend="Ask anything:" Hint="I am waiting"/>
+      <InputGroup  InputSize="xs" Prepend="&lt;input type='radio'>" Append="&lt;input type='checkbox'>">
+        <Image Source="C:\Users\frank\Pictures\3D Sturvz\8cee69ab40.jpg" 
+            Hint="image 2" Text="I love images too" ImageStyle="thumbnail" IsFormControl="true" />
+      </InputGroup>
+      <InputGroup InputSize="sm">
+        <Addon><Radio /></Addon>
+        <TextBox IsFormControl="true" />
+        <Addon><Check /></Addon>
+      </InputGroup>
+      <Button Repeat="3">{String {$RepeatCount}}</Button>
+      <Button Repeat="3" Text="{String {$RepeatCount}}" />
+      <Button Repeat="3">{?String {$RepeatCount}}</Button>
+      <Button Repeat="3" Text="{?String {$RepeatCount}}" />
+      <InputGroup InputSize="lg">
+        <Addon><Button Text="Go!" /></Addon>
+        <TextBox IsFormControl="true" />
+        <Addon><SplitButton Text="Split" DropStyle="up">
+          
+            <MI Repeat="3">{?String {$RepeatCount}}</MI>
+            <MI Repeat="3">Repeat 3 times</MI>
+          
+        </SplitButton></Addon>
+      </InputGroup>
+    </Form>
+  </body>
+</html>

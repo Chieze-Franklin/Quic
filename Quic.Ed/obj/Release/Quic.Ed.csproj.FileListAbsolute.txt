@@ -1,0 +1,7 @@
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Ed\bin\Release\Quic.Ed.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Ed\bin\Release\Quic.Ed.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Ed\bin\Release\Quic.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Ed\bin\Release\Quic.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Ed\obj\Release\Quic.Ed.csprojResolveAssemblyReference.cache
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Ed\obj\Release\Quic.Ed.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Ed\obj\Release\Quic.Ed.pdb

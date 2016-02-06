@@ -1,0 +1,17 @@
+﻿Creating Your Own Quic Elements
+	System Architecture //explain how it works
+
+------------
+a manifest listing the elements (and their properties) in an assembly
+<Element Name="Quic.Nothing" Type="UI|Resource" Extends="Quic.Element" IsContainer="true|false">
+	<Properties>
+		<Property Name="" Type="" AllowedValues=",,">
+			<Description></Description>
+		</Property>
+	</Properties>
+	<Description></Description>
+</Element>
+
+<ValueProvider></ValueProvider>
+
+<FileInitializer></FileInitializer>

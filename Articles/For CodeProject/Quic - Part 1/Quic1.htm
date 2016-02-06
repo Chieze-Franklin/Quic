@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introducing the Quic Web Development Framework - Part 1</title>
+	</head>
+	
+	<body>
+	
+		<pre>
+			Title:       Introducing the Quic Web Development Framework - Part 1
+			Author:      Franklin Chieze
+			Email:       chieze.franklin@gmail.com
+			Language:    C# 5.0
+			Platform:    Windows
+			Technology:  .NET Framework
+			Level:       Intermediate
+			Description: Quic is a web development framework that enables you create rich web applications with less code than is usually needed.
+			Section      Web Development
+			SubSection   General
+			License:     CPOL
+		</pre>
+		
+		<link type="text/css" rel="stylesheet" href="./Quic1_files/Main.min.css">
+		
+		<div class="page-background">
+			<div id="A" class="container-content-wrap fixed article">
+				<form>
+					<div class="header">
+					    <a name="_articleTop" id="_articleTop"></a>
+					    <div class="title">
+					        <h1 id="ctl00_ArticleTitle" itemprop="name">
+							Introducing the Quic <img width="32" height="32" src="./Quic1_files/quic.png" /> Web Development Framework - Part 1
+							</h1> 
+					    </div>
+                    </div>
+
+					<div id="contentdiv" class="text" itemprop="articleBody">
+						<ul class="download">
+							<li><a href="./quic_v0_1_sources.zip">Download Quic v0.1 Source Codes - 598 KB</a></li>
+							<li><a href="./samples.zip">Download Quic Samples - 493 KB</a></li>
+							<li><a href="https://github.com/Chieze-Franklin/Quic">GitHub repo</a></li>
+						</ul>
+
+						<h2>Introduction</h2>
+						<p>
+							Quic is a web development framework that enables you create rich web applications with less code than is usually needed.<br />
+							Quic is basically a preprocessor; it goes through your HTML file, looking for custom tags, and producing standard HTML, CSS,
+							JavaScript (and pretty much anything) from such tags.<br />
+							When a custom tag is encountered Quic loads the appropriate assembly and locates a class with the same name as the tag.
+							The class is then instantiated, and its <code>Render</code> method is called to emit the relevant codes and/or files.<br />
+							So we can say Quic allows you to delegate the dirty jobs to a class, and include that class in your HTML file as a custom tag.
+						</p>
+						<p>
+							A quick (hehe, pun intended) example:<br />
+							Suppose I want to include a dark, fixed-to-top Bootstrap navbar on my page,<br />
+							<img width="600" height="200" src="./Quic1_files/navbar.png" /><br />
+							I could type the below code:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">nav</span> <span class="code-keyword">class</span>=" navbar navbar-inverse navbar-fixed-top" <span class="code-keyword">role</span>="navigation">
+  &lt;<span class="code-type code-keyword">div</span> <span class="code-keyword">class</span>="navbar-header">
+    &lt;<span class="code-type code-keyword">button</span> <span class="code-keyword">type</span>="button" <span class="code-keyword">class</span>="navbar-toggle" <span class="code-keyword">data-toggle</span>="collapse" <span class="code-keyword">data-target</span>="#menu1-navbar-collapse">
+      &lt;<span class="code-type code-keyword">span</span> <span class="code-keyword">class</span>="sr-only">Show/Hide</span>&lt;/<span class="code-type code-keyword">span</span>>
+      &lt;<span class="code-type code-keyword">span</span> <span class="code-keyword">class</span>="icon-bar">&lt;/<span class="code-type code-keyword">span</span>>
+      &lt;<span class="code-type code-keyword">span</span> <span class="code-keyword">class</span>="icon-bar">&lt;/<span class="code-type code-keyword">span</span>>
+      &lt;<span class="code-type code-keyword">span</span> <span class="code-keyword">class</span>="icon-bar">&lt;/<span class="code-type code-keyword">span</span>>
+    &lt;/<span class="code-type code-keyword">button</span>>
+    &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">class</span>="navbar-brand" <span class="code-keyword">href</span>="#">The QUIC Framework&lt;/<span class="code-type code-keyword">a</span>>
+  &lt;/<span class="code-type code-keyword">div</span>>
+  &lt;<span class="code-type code-keyword">div</span> <span class="code-keyword">class</span>="collapse navbar-collapse" <span class="code-keyword">id</span>="menu1-navbar-collapse">
+    &lt;<span class="code-type code-keyword">ul</span> <span class="code-keyword">class</span>="nav navbar-nav">
+      &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
+        &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Introduction&lt;/<span class="code-type code-keyword">a</span>>
+      &lt;/<span class="code-type code-keyword">li</span>>
+      &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
+        &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">A Little Back-Story&lt;/<span class="code-type code-keyword">a</span>>
+      &lt;/<span class="code-type code-keyword">li</span>>
+      &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
+        &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Features and Advantages&lt;/<span class="code-type code-keyword">a</span>>
+      &lt;/<span class="code-type code-keyword">li</span>>
+      &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">class</span>="dropdown">
+        &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">class</span>=" dropdown-toggle navbar-btn" href="#" <span class="code-keyword">data-toggle</span>="dropdown">
+          Creating Your Own Quic Elements
+          &lt;<span class="code-type code-keyword">b</span> <span class="code-keyword">class</span>="caret">&lt;/<span class="code-type code-keyword">b</span>>
+        &lt;/<span class="code-type code-keyword">a</span>>
+        &lt;<span class="code-type code-keyword">ul</span> <span class="code-keyword">class</span>="dropdown-menu" <span class="code-keyword">role</span>="menu">
+          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
+            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">What You Should Know&lt;/<span class="code-type code-keyword">a</span>>
+          &lt;/<span class="code-type code-keyword">li</span>>
+          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation" <span class="code-keyword">class</span>=" divider">&lt;/<span class="code-type code-keyword">li</span>>
+          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
+            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Bootstrap&lt;/<span class="code-type code-keyword">a</span>>
+          &lt;/<span class="code-type code-keyword">li</span>>
+          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
+            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">React&lt;/<span class="code-type code-keyword">a</span>>
+          &lt;/<span class="code-type code-keyword">li</span>>
+          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
+            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Angular&lt;/<span class="code-type code-keyword">a</span>>
+          &lt;/<span class="code-type code-keyword">li</span>>
+          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation" <span class="code-keyword">class</span>=" divider">&lt;/<span class="code-type code-keyword">li</span>>
+          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation" <span class="code-keyword">class</span>=" dropdown-header">My Custom Quic Elements&lt;/<span class="code-type code-keyword">li</span>>
+          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
+            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Ed&lt;/<span class="code-type code-keyword">a</span>>
+          &lt;/<span class="code-type code-keyword">li</span>>
+        &lt;/<span class="code-type code-keyword">ul</span>>
+      &lt;/<span class="code-type code-keyword">li</span>>
+    &lt;/<span class="code-type code-keyword">ul</span>>
+  &lt;/<span class="code-type code-keyword">div</span>>
+&lt;/<span class="code-type code-keyword">nav</span>>
+</pre>
+							Not only is the above code quite long, it is also not the prettiest thing to the eye.<br />
+							To make my page easy on the eye, I created a few C# classes like Menu, MI (or MenuItem), DropMenu, and delegated to them the
+							responsibility of producing the appropriate codes. I then include those classes on my page, as shown below:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Menu</span> <span class="code-keyword">Text</span>="The QUIC Framework" <span class="code-keyword">Collapsible</span>="true" <span class="code-keyword">Theme</span>="dark" <span class="code-keyword">Position</span>="fixedtop">
+  &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Introduction&lt;/<span class="code-type code-keyword">MI</span>>
+  &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">A Little Back-Story&lt;/<span class="code-type code-keyword">MI</span>>
+  &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Features and Advantages&lt;/<span class="code-type code-keyword">MI</span>>
+  &lt;<span class="code-type code-keyword">DropMenu</span> <span class="code-keyword">Text</span>="Creating Your Own Quic Elements" <span class="code-keyword">DropStyle</span>="down">
+    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">What You Should Know&lt;/<span class="code-type code-keyword">MI</span>>
+    &lt;<span class="code-type code-keyword">Divider</span> />
+    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Bootstrap&lt;/<span class="code-type code-keyword">MI</span>>
+    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">React&lt;/<span class="code-type code-keyword">MI</span>>
+    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Angular&lt;/<span class="code-type code-keyword">MI</span>>
+    &lt;<span class="code-type code-keyword">Divider</span> />
+    &lt;<span class="code-type code-keyword">Header</span> <span class="code-keyword">Text</span>="My Custom Quic Elements" />
+    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Ed&lt;/<span class="code-type code-keyword">MI</span>>
+  &lt;/<span class="code-type code-keyword">DropMenu</span>>
+&lt;/<span class="code-type code-keyword">Menu</span>>
+</pre>
+						Apart from the obvious advantages of being shorter in length and easier to read, even a first-timer to web development knows
+						exactly what you are trying to achieve. That is, Quic makes your code more intuitive.
+						</p>
+						<p>
+							Some of the advantages of Quic include:
+							<ul>
+								<li>
+									<b>There are no tags.</b><br />
+									Quic has no custom tags of its own. So, technically, you don't have a lot of new things to learn. 
+									Custom tags are created by developers. (A good number of times you may find yourself as both the creator and consumer of
+									your custom tags.) Quic simply finds classes with the same names as the custom tags in appropriate
+									assemblies (using reflection), and invoke the <code>Render</code> methods of such classes. Developers of such custom 
+									tags should endeavour to provide adequate documentation for their custom tags.<br />
+									As a consumer of such tags, you simply need to learn the tags you need for the job at hand.
+								</li>
+								<li>
+									<b>Works well with any XML document.</b><br />
+									Quic expects your document to be XML-compliant. This means you can use it with different types of documents like XAML and
+									Android XML. But it also means that to use it with your HTML file, your HTML should really be XHTML.
+								</li>
+								<li>
+									<b>More readable code.</b><br />
+									One of the foundational ideas behind Quic is that, instead of using general-purpose tags like <code>&lt;div></code> to
+									represent different constructs, we should use custom tags with names that adequately state their purposes. In the Quic
+									example above, you can easily tell (or guess) what tags like <code>&lt;DropMenu></code> and 
+									<code>&lt;Divider></code> represent/do.<br />
+									Similarly, you don't have to keep in memory all the CSS classes that are needed to make a <code>&lt;div></code> look like
+									a drop menu; you simply use the <code>&lt;DropMenu></code> tag, and let it emit the relevant CSS codes.
+								</li>
+								<li>
+									<b>Easy to refactor.</b><br />
+									Quic makes refactoring easier because the refactoring can be done in the <code>Render</code> method of the appropriate
+									class. If you need to change the markup that defines an element, say a table, instead of going through all your HTML
+									files to effect such changes, you can simply do it in just one place: in the <code>Render</code> method of the appropriate
+									class.<br />
+									Tomorrow I may decide not to use Bootstrap at all. All I will need to do is to change what is emitted by the various
+									<code>Render</code> methods of my various classes; my numerous HTML pages do not need to be changed a bit.
+								</li>
+								<li>
+									<b>Quic does more than just emit code.</b><br />
+									Quic doesn't just emit codes, it can create needed files in the output directory.<br />
+									For instance, I wrote a class called <code>UseBootstrap</code> 
+									[<em class="file-path">Quic.Bootstrap\Elements\Resources\UseBootstrap.cs</em>]. It is a resource element (inherits from
+									<code>Quic.ResourceElement</code> [<em class="file-path">Quic\Core\Elements\ResourceElement.cs</em>]), so you include it 
+									within the <code>&lt;head></code> tag of your HTML file.
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">head</span>>
+  &lt;<span class="code-type code-keyword">UseBootstrap</span> />
+&lt;/<span class="code-type code-keyword">head</span>>
+</pre>
+									What this element does is to create all the necessary Bootstrap files, as can be seen in the <code>Render</code> method
+									of the <code>UseBootstrap</code> class.<br />
+									<img width="600" height="250" src="./Quic1_files/usebootstrap_render.png" /><br />
+									In the method <code>CheckForNecessaryFiles()</code>, relevant missing files are created.<br />
+									<img width="600" height="500" src="./Quic1_files/usebootstrap_checkfornecessaryfiles.png" /><br />
+									This demonstrates that (unlike some similar technologies) Quic elements (custom tags) have the ability to write to the
+									output directory.<br />
+									Note that Quic tags do <em>NOT</em> have access to any directory outside the output directory, and the output
+									directory is always chosen by the user.
+								</li>
+								<li>
+									<b>Works well with other web frameworks.</b><br />
+									Quic works well with other web frameworks/technologies because Quic is simply a preprocessor. It goes through your file
+									looking for custom tags that make sense to it. Every other content on the file is left untouched.
+								</li>
+							</ul>
+						</p>
+						<p>
+							<span class="code-comment">
+							As at the time this idea struck me I was not aware of existing similar solutions. However, as I progressed deeper into the project,
+							I ran into technologies and frameworks like Facebook's React and helpers in ASP.NET that serve similar purposes.
+							</code>
+						</p>
+
+						<h2>Background</h2>
+						<p>
+							I'm not primarily a web developer, so I tend to favour <i>short-cuts</i> when working on web applications. Any time I come across
+							a cool web user interface component I always find myself wishing there was a function I could just call and have it emit all the
+							HTML mark-ups (usually <code>&lt;div></code> tags), CSS classes and JavaScript codes needed to produce such a component. I am
+							also put off by how untidy these mark-ups and scripts always look. What more, I would love to easily <em>reuse</em> these 
+							components, in much the same way we reuse components in, say, C#.
+						</p>
+						<p>
+							That is how the idea behind Quic came about, some years ago. Since its inception the idea has undergone many changes.
+							Initially, Quic wasn't built with HTML in mind; it was built to work with any user interface mark-up language. It is only in 
+							recent month that I decided to position Quic as a web technology. Some of the reasons for that include the fact that most people
+							will use it with HTML (as against XAML, or Android XML); and focusing it on the web makes it easier to explain. Also, by
+							focusing on the web I got to remove those areas of the source code that existed to make Quic <em>generic</em>. Thus, I have a
+							slimmer code base.
+						</p>
+						<p>
+							QUIC means <em>Quic User Interface C...</em> I can't remember what C originally meant. It may have been <em>Creator</em> or 
+							<em>Converter</em><br />
+							The snail logo <img width="16" height="16" src="./Quic1_files/quic.png" /> was chosen rather playfully to be an antonym to the idea 
+							of the project, snails being slow. But, perhaps, it also represents laziness, Quic being targeted at lazy web developers, 
+							like myself, who like to get more done by doing little.
+						</p>
+						<p>
+							To successfully follow the source codes in this framework, all you need is a healthy knowledge of C#. Two of the core namespaces
+							used are <code>System.Xml.Linq</code> (I previously used <code>System.Xml</code>, but found it difficult retrieving line
+							number and column number information) and 
+							<code><a href="http://msdn.microsoft.com/en-us/library/system.reflection(v=vs.110.aspx)">System.Reflection</a></code> to help
+							me load the relevant assemblies and classes.
+						</p>
+
+						<h2>Getting Started</h2>
+						<h3>System Requirements</h3>
+						<p>
+							<ul>
+								<li>The app was built on a Windows 8 machine, but should run with no modification on Windows 7 and Windows 10.</li>
+								<li>The target framework is .NET Framework 4.5, but the source code can be built against many previous versions, as
+								well as .NET Framework 4.6.</li>
+							</ul>
+						</p>
+						<h3>The Quic Bar</h3>
+						<p>
+							I am assuming you have downloaded (and extracted files from) the relevant zip files.
+							<ul>
+								<li>
+									Run the solution; the start-up project should be <em class="file-path">Quic.App</em>, so this should run the
+									<em class="file-path">Quic.App.exe</em> executable.<br />
+									<img width="600" height="59" src="./Quic1_files/quic_bar.png" />
+								</li>
+								<li>
+									The Quic bar is an always-visible floating toolbar. It's size allows you to continue writing your markup in your
+									preferred editor, returning easily to the bar whenever you are ready to build the file. When maximized, the bar is fixed
+									at the top of your screen, but when in normal window mode (restored), it can be dragged to any location on the screen.<br />
+									In building a file, custom recognizable tags in the file are interpreted/processed, similar to how a PHP interpreter/engine
+									works on a PHP file. Unlike a PHP engine which may send the result of the processing to a browser, the Quic bar saves its 
+									own result as an output file in the specified output directory, along with every other asset that was generated during the
+									build.
+								</li>
+								<li>
+									Using the Quic bar is easy. Having typed your markup in an editor of your choice, select the file (file extension is
+									irrelevant), select your output directory, then click the <em>Build source file</em> button.<br />
+									<img width="600" height="337" 
+										src="./Quic1_files/quic_bar_build.png" />
+								</li>
+								<li>
+									The <em>Show/hide notifications</em> button will have a green badge on it if the build was successful. Click the button
+									to view any available notifications.<br />
+									<img width="600" height="100" src="./Quic1_files/quic_bar_notif.png" />
+								</li>
+								<li>
+									Click the <em>Open output directory</em> button to navigate to the output directory.<br />
+									Notice the auto-generated files and folders in the output directory.</br />
+									<img width="600" height="324" src="./Quic1_files/quic_bar_open_output_dir.png" />
+								</li>
+							</ul>
+						</p>
+						<h3>Using Quic Custom Tags on Your Web Pages</h3>
+						<p>
+							Although Quic was originally built to work with any kind of file, it now focuses more on HTML file. Quic expects XML-compliant 
+							files. So, you are really working with XHTML files. Quic cares little about the extension of your file.
+						</p>
+						
+						<h4>Basic Structure</h4>
+						<p>
+							Because of the focus on HTML documents, Quic expects the root tag of the document to be <code>&lt;html></code>. 
+							Quic expects your <code>&lt;html></code> tag to have <code>&lt;head></code> and <code>&lt;body></code> tags. These tags are always
+							in lower case.<br />
+							The <code>&lt;html></code> tag is expected to have certain attributes that determine how the document is processed. We will take
+							a close look at the <code>&lt;html></code> tag in this article.<br />
+							The <code>&lt;head></code> tag is expected to contain <em>resource elements</em>. These elements usually hold resources that
+							can be used over and over in the document.<br />
+							The <code>&lt;body></code> tag contains <em>UI elements</em>. Theses elements define the user interface of the document.<br />
+							A sample Quic document is shown below.<br />
+							<img width="600" height="590" src="./Quic1_files/ed.xml.png" /><br />
+							The <code>&lt;head></code> and <code>&lt;body></code> tags will be looked into in the next article.
+						</p>
+						
+						<h3>The &lt;html> Tag</h3>
+						<p>
+							The <code>&lt;html></code> tag contains three classes of attributes relevant to Quic: 
+							<ol>
+							<li><a href="#namespace">Namespace attributes</a></li>
+							<li><a href="#proc_opt">Processing option attributes</a></li>
+							<li><a href="#out_file">Output file attribute</a></li>
+							</ol>
+						</p>
+						
+						<h4><a name="namespace" id="namespace">Namespace attributes</a></h4>
+						<p>
+							Namespace attributes define the namespaces utilized in the document. To explain namespaces we will work with the 
+							<em>ed.xml</em> document shown above.
+						</p>
+						<p>
+							We know that when Quic finds a tag in your document, it tries to find and instantiate an object of a class whose name matches the 
+							tag name. How does Quic know where to search when trying to match a tag to a class? It does this by examining the XML namespace 
+							(xmlns) attributes attached to the root <code>&lt;html></code> tag. These attributes hold the locations of assemblies and 
+							namespaces from which Quic elements can be instantiated.
+						</p>
+						<p>
+							If the value of a namespace attribute contains a colon (:), the part to the left of the colon identifies the file path
+							(could be relative or absolute) of the assembly (typically a .DLL file) to search, and the part to the right of the colon 
+							identifies the namespace to search. If the value of a namespace attribute contains no colon (:), then that value refers simply to 
+							the file path of the assembly to search. This is typically used when you want to find classes that have no enclosing namespace 
+							(like most classes in my <em class="file-path">Quic.Bootstrap.dll</em> assembly).
+						</p>
+						<p>
+							Your Quic document contains tags without prefixes and tags with prefixes. When a tag without prefix is encountered, there are two
+							possibilities:
+							<ol>
+							<li>
+								The value of the default namespace attribute, <code>xmlns</code>, holds the assembly and the <em>namespace</em> of the class
+								to instantiate, and the name of the class is the same as the name of the tag.<br />
+								In our sample document, on line 13 you find the tag <code>&lt;UseBootstrap /></code> with no prefix. If you go up to line 3
+								you find the default namespace attribute <code>xmlns="Quic.Bootstrap.dll"</code>. This means that the tag
+								<code>&lt;UseBootstrap /></code> points to a class named <code>UseBootstrap</code> (with no containing namespace in this case)
+								found in the assembly <em class="file-path">Quic.Bootstrap.dll</em> which, in this case, must be located in the same directory as 
+								our sample document, as shown below:<br />
+								<img width="600" height="240" src="./Quic1_files/test_dir.png" /><br />
+								The same rule applies to other tags in the document like <code>&lt;Form></code>, <code>&lt;Grid></code>,
+								<code>&lt;Row></code>, <code>&lt;Column></code>.
+							</li>
+							<li>
+								There is a namespace attribute that matches this tag, and the value of that attribute holds the assembly and the
+								<em><b>fully qualified name</b></em> (not just namespace, but namespace and class name) of the class to instantiate.<br />
+								In our sample document above, on lines 22 and 23 you find the tags <code>&lt;radix></code> and <code>&lt;rad></code> with
+								no prefix. If you go up to lines 6 and 7 you find the matching namespace attributes <code>xmlns:radix</code> and
+								<code>xmlns:rad</code>. On further inspection you notice that both attributes have the same value
+								<code>Quic.Ed.dll:Quic.Ed.Math.Radix</code>. This means that the tags <code>&lt;radix></code> and <code>&lt;rad></code> both
+								point to the same class <code>Quic.Ed.Math.Radix</code> found in the assembly <em class="file-path">Quic.Ed.dll</em>
+								which, in this case, must be located in the same directory as our sample document, as shown in the directory image above.
+							</li>
+							</ol>
+						</p>
+						<p>
+							When a tag with prefix is encountered, Quic finds a namespace attribute that matches the <em>prefix</em> of the tag, and the
+							value of that attribute holds the assembly and the <em>namespace</em> of the class to instantiate, and the name of the class is 
+							the same as the name of the tag.<br />
+							In our sample document, on line 21 you find the tag <code>&lt;math:Radix></code> with prefix <em>math</em>. If you go up to line 5
+							you find the matching namespace attribute <code>xmlns:math="Quic.Ed.dll:Quic.Ed.Math"</code>. This means that the tag
+							<code>&lt;math:Radix></code> points to a class named <code>Radix</code> in the namespace <code>Quic.Ed.Math</code>. Therefore,
+							the full name of this class is <code>Quic.Ed.Math.Radix</code>, and it is found in the assembly 
+							<em class="file-path">Quic.Ed.dll</em> located in the same directory as our sample document.<br />
+							It, therefore, follows that the tags <code>&lt;math:Radix></code>, <code>&lt;radix></code> and <code>&lt;rad></code> all point
+							to the same class. This becomes evident when you view the output file generated by Quic from this document.<br />
+							<img width="600" height="125" src="./Quic1_files/ed.html.png" />
+						</p>
+						<p>
+							Library owners should endeavour to make known the appropriate namespaces and classes available in their libraries. This could be
+							via an XML document, like is done by Visual Studio. More on this in the next article(s).
+						</p>
+						
+						<h4><a name="proc_opt" id="proc_opt">Processing option attributes</a></h4>
+						<p>
+							There are certain Quic-specific attributes that are expected in the <code>&lt;head></code> tag that determine how the page will be
+							processed. Looking at the <em>ed.xml</em> document shown above, we see one of such attributes on line 9, 
+							<code>IgnoreAttrbuteCase</code>. The list of processing option attrbutes (and their descriptions) is given below:
+							<ul>
+								<li>
+								<b>AllowUnknownAttributes</b>: This is true by default. If true, this tells Quic not to throw an exception anytime it 
+								encounters an attribute it does not understand. Such an attribute (and its value) will be left untouched by Quic.<br />
+								I should mention here that, just as tags map to classes in the appropriate assemblies, attributes map to public, read-write 
+								properties of those classes.
+								</li>
+								<li>
+								<b>AllowUnknownTags</b>: This is true by default. If true, this tells Quic not to throw an exception anytime it 
+								encounters a tag it does not understand. Such a tag will be left untouched by Quic.<br />
+								There is a good reason why <code>AllowUnknownAttributes</code> and <code>AllowUnknownTags</code> attributes are true by default.
+								This is to allow Quic parse regular (X)HTML documents that will surely contain tags and attributes that have no matchning classes
+								and properties in any of the assemblies included in the document (via the namespace attributes). You can explicitly set them
+								to false if you want your document to consist strictly of Quic-recognisable tags and attributes.
+								</li>
+								<li>
+								<b>IgnoreAttrbuteCase</b>: This is false by default. If true, this tells Quic not to be case-sensitive when trying to match
+								a tag attribute to a class property.
+								</li>
+								<li>
+								<b>IgnoreTagCase</b>: This is false by default. If true, this tells Quic not to be case-sensitive when trying to match
+								a tag to a class.<br />
+								There is a good reason why <code>IgnoreAttrbuteCase</code> and <code>IgnoreTagCase</code> attributes are false by default.
+								This is to make Quic case-sensitive. The rationale here is that your typical HTML tags and attributes should be written in
+								lowercase while your Quic tags and attributes should be written in <em>pascal notation</em>, which is the same notation you
+								would use for your class and public property names in C#. So, this would mean that <code>&lt;button></code> should be a HTML
+								tag while <code>&lt;Button></code> should be a Quic tag.<br />
+								Note that irrespective of the values of the <code>IgnoreAttrbuteCase</code> and <code>IgnoreTagCase</code> attributes, the
+								<code>&lt;html></code>, <code>&lt;head></code> and <code>&lt;body></code> tags are always in lowercase, and the Quic-specific
+								attributes found in the <code>&lt;html></code> tag are always written in pascal notation.
+								</li>
+							</ul>
+						</p>
+						
+						<h4><a name="out_file" id="out_file">Output file attributes</a></h4>
+						<p>
+							Another Quic-specific attribute that is expected in the <code>&lt;html></code> tag is the <code>OutputFile</code> attribute, as
+							seen on line 10 in the <em>ed.xml</em> document shown above. As you may have already guessed, this attribute describes the final
+							output file that will be generated by Quic after all the relevant processing/preprocessing has been done.
+						</p>
+						<p>
+							If the value of the attribute starts with a single opening brace and ends with a single closing brace (as seen in <em>ed.xml</em>),
+							then the first part (<code>core:HtmlFile</code> in this case) points to a class that will initialize the output file, and the
+							second part (<code>ed.html</code> in this case) is the name with which the output file will be saved in the output directory. Values
+							of attributes defined this way are typically subject to the same rules of namespacing discussed in 
+							<a href="#namespace">Namespace attributes</a> above. In this case, a class named <code>HtmlFile</code> will be loaded from
+							the assembly <code>Quic.Core.dll</code> (as defined on line 4, <code>xmlns:core="Quic.Core.dll"</code>). This class is expected to
+							derive from the class <code>Quic.FileInitializer</code> [<em class="file-path">Quic\FileInitializers\FileInitializer.cs</em>],
+							found in <em>Quic.dll</em>.
+						</p>
+						<p>
+							If you check the source codes for the project <em>Quic.Core</em> you will not find any class called <em>HtmlFile</em>. So what does Quic do?
+							Anytime Quic doesn't find a file initializer it appends the strings <code>"Initializer"</code> or <code>"Initialiser"</code>, and
+							performs the search again. So, in this case, Quic will then search for <em>HtmlFileInitializer</em>
+							[<em class="file-path">Quic.Core\FileInitializers\HtmlFileInitializer.cs</em>], and will find it.<br />
+							From the source code you can see that the class <code>HtmlFileInitializer</code> in project <em>Quic.Core</em> extends the class
+							<code>Quic.HtmlFileInit</code> [<em class="file-path">Quic\FileInitializers\HtmlFileInit.cs</em>] in project <em>Quic</em>. 
+							<code>Quic.HtmlFileInit</code> in turn extends <code>Quic.FileInitializer</code>.
+							<br />
+							The implemented method <code>InitializeFile</code> of <code>Quic.HtmlFileInit</code> initializes an output file as it deems fit:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">override</span> <span class="code-type code-keyword">OutputFile</span> InitializeFile(<span class="code-type code-keyword">QuicDocument</span> doc, <span class="code-keyword">string</span> filename)
+{
+  <span class="code-type code-keyword">HtmlOutputFile</span> htmlOutputFile = <span class="code-keyword">new</span> <span class="code-type code-keyword">HtmlOutputFile</span>(filename);
+  htmlOutputFile.CurrentSection = htmlOutputFile.HeadSection;
+  
+  <span class="code-comment">//put it in the output dir</span>
+  <span class="code-keyword">if</span> (doc.OutputDirectory != <span class="code-keyword">null</span>)
+    doc.OutputDirectory.Add(htmlOutputFile, <span class="code-keyword">true</span>);
+    
+  <span class="code-keyword">return</span> htmlOutputFile;
+}
+</pre>
+							Your output file class (<code>Quic.HtmlOutputFile</code> [found in <em class="file-path">Quic\Core\Output\OutputFile.cs</em>] in the code 
+							above) must derive from the class <code>Quic.TextFile</code> [found in <em class="file-path">Quic\Core\Output\OutputFile.cs</em>]
+							found in <em>Quic.dll</em>.<br />
+							See the output file generated in the output directory:<br />
+							<img width="600" height="145" src="./Quic1_files/ed_out_file.png" /><br />
+							Following the ideas presented here you can easily create and use your own file initilizers.
+						</p>
+						<p>
+							If the value of the <code>OutputFile</code> attribute does <b>NOT</b> start with a single opening brace or does <b>NOT</b> end 
+							with a single closing brace, your output file will be a plain text file and the entire value of the <code>OutputFile</code> attribute 
+							is taken as the name of the file.
+						</p>
+
+						<h2>Points of interest</h2>
+						<p>
+							In this article I have introduced the Quic framework and discussed the tool available to utilize it. I have also started discussing
+							the basic structure of a document that is supposed to be preprocessed by Quic. Although some source code snippets were displayed
+							here, they will be discussed in more details in coming articles; the main purpose of this article is to get you aware of
+							and interested in Quic, interested enough to go further and use it make the UI part of your web development a little easier.<br />
+							In the next article(s) we will be talking about:
+							<ul>
+							<li>the <code>&lt;head></code> tag</li>
+							<li>the <code>&lt;body></code> tag</li>
+							<li>value providers</li>
+							<li>understanding the Quic source code</li>
+							<li>creating your own Quic elements</li>
+							</ul>
+						<p>
+
+						<h2>License</h2>
+						<div id="LicenseTerms">
+						<p>
+							This article, along with any associated source code and files, is licensed under 
+							<a href="http://www.codeproject.com/info/cpol10.aspx" rel="license">The Code Project Open License (CPOL)</a>
+						</p>
+						</div><br>
+						
+					<div style="padding-top:8px">
+						<a class="anchorLink" href="#_articleTop">Article Top</a>
+					</div>
+				</form>
+			</div>
+		</div> 
+	</body>
+</html>

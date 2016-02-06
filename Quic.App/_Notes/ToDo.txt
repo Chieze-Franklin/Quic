@@ -1,0 +1,117 @@
+﻿implement Image wif Text
+give people the option of specifying where images and other files shud b output within d output dir
+consider <%page www.address.com%>
+Children should adopt attributes from parents
+providers that can accept multple values: {Add {$A.Width}, {Integerprovider {$A.Text}}}
+Custom properties: <tag CustomProperties="ng-model='model' styles='a:b; c:d'" />
+-------------------------------------------
+
+add image to menu
+set copyright on GitHub (ask Samuel which copyright he uses)//GPL 3.xx
+<Bookmark page="88">Forms in navbar</Bookmark> //add search box
+<Bookmark page="90">Component alignment</Bookmark>
+inline code (<code>) and block (<pre>)
+<UseReact /><UseAngular /> resources
+	When using React, u will also be able to build components with tags, not just script:
+	<Component Name="person" Properties="name, age">
+		<h6>My name is {name}</h6>
+		<b>I am {age} years old</b>
+	</Component>
+	Then use the component in the UI section:
+	<person name="Oliver" age="13" />
+	Note that AllowUnknownTags and AllowUnknownAttributes must be set to true (which is the default).
+	The <Component> resource will emit the appropriate ReactJS codes.
+classes: visible-xs,visible-*,col-md-offset-[1-11]
+Bootstrap Typography
+Bootstrap Helper Classes
+Bootstarp Responsive Utilities
+---------Quic.Social---------#pg 168
+<LinkShare /> 
+<twitter:Profile UserName="@1990hackaholic" />
+<twitter:Search SearchText="Kim K." />
+<facebook:LikeButton />
+??<Gravatar UserName="" Size="" />
+---------Quic.Analytics---------#pg 177
+<Google UserName="" />
+<Yahoo UserName="" />
+<StatCounter UserName="" Security="" />
+-------------------------------------------
+raise events when child elements are added/removed (b4 and after)
+	use events to ensure proper child is added, e.g. with Table... elements
+add uppercase (C), lowercase (c) to string value provider; CC Cc
+
+-introduc XHTML/Escape container (it is actually not a container); used to allow unknown tags even when AllowUnknownTags is set to false
+-implement place holder controls
+
+StringFormatProvider //it is a dictonary //{StringFormatProvider My name is {name}} //= string.Format("My name is {0}", name)
+ArrayProvider
+DictionaryProvider
+	{@dic key}
+LinkProvider
+
+create JavaScript value provider
+	use Jurrassic internally
+	file path for JS file can be specified using it's Link/Source prop
+	string script source is specified using its Content prop
+	u can include the whole path: xmlns:js="...dll:...JavaScriptProvider" => <A Text="{js a+b}" />
+similar, create HackScript value provider???
+similar, create CSharp value provider???
+
+A html <Title> resource
+
+ResourceBundle resource allows u to reference a file dt contains reseources to b used in this file
+
+__________________Things we'll do with AngularJS____________________
+Model Binding //must implement ModelBinderProvider { BindTo(model); } may not be a value provider, as it doesnt evaluate to anything
+	<TextBox Model="mName" />
+	//implicit model binding may be done using AngularJS. the above may emit: <input type="text" ng-model="mName" />
+	//you cud use an explicit model binding provider:
+	<TextBox Model="{ember:ModelBinder mName}" />
+Binder
+	<Label Text="{mName}" />
+
+---------------------EVENTS--------------------------
+
+----------------------------------------
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<Quic xmlns="Quic.Core.dll:Quic"
+      xmlns:a="Quic.Core.dll:Quic"
+      AllowUnknownAttributes="true"
+      AllowUnknownTags="TRUE"
+      IgnoreAttributeCase="false"
+      IgnoreTagCase="false"
+      OutputFile="{HtmlFile sample.html}">
+
+  <Resources>
+    <ColorProvider Key="cp" />
+    <StringProvider Key="sp" />
+  </Resources>
+  <UI>
+    <!---->
+    <!--  -->
+    <!-- in a comment -->
+    <!-- OUT:in a comment to be output -->
+    <TD Context="Active" amarachi="dance">
+      Raw &amp;amp; text1 <b>Raw <?quic wonderlust quic?> text 2</b>
+      Raw text1 <a:b abc="xyz">Raw <Group>within the group</Group>text 2</a:b><br />
+      <Label>inside a label</Label>
+      <Button>
+      <![CDATA[
+        var a = 1;
+        var b = 2;
+        if(a < b || a > 12)
+          log("wow I am in script < mode mode="script" >");
+      ]]>
+	  <!--cdata:
+        var a = 1;
+        var b = 2;
+        if(a < b || a > 12)
+          log("wow I am in script < mode mode="script" >");
+		<![CDATA[ ... ]]>
+      -->
+      </Button>
+    </TD>
+    <TD></TD>
+  </UI>
+</Quic>

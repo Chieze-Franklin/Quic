@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FB5E3F6B-7553-4ECF-B7D6-483CB5FCD85D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>Quic.Bootstrap</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Elements\Addon.cs" />
+    <Compile Include="Elements\BootstrapContainerElement.cs" />
+    <Compile Include="Elements\BootstrapElement.cs" />
+    <Compile Include="Elements\Breadcrumb.cs" />
+    <Compile Include="Elements\BreadcrumbItem.cs" />
+    <Compile Include="Elements\Button.cs" />
+    <Compile Include="Elements\ButtonGroup.cs" />
+    <Compile Include="Elements\ButtonToolbar.cs" />
+    <Compile Include="Elements\CheckBox.cs" />
+    <Compile Include="Elements\CheckElement.cs" />
+    <Compile Include="Elements\Column.cs" />
+    <Compile Include="Elements\Drop.cs" />
+    <Compile Include="Elements\DropButton.cs" />
+    <Compile Include="Elements\DropItem.cs" />
+    <Compile Include="Elements\FilePicker.cs" />
+    <Compile Include="Elements\Grid.cs" />
+    <Compile Include="Elements\Group.cs" />
+    <Compile Include="Elements\HeaderMenuItem.cs" />
+    <Compile Include="Elements\ILinkElement.cs" />
+    <Compile Include="Elements\Image.cs" />
+    <Compile Include="Elements\InputElement.cs" />
+    <Compile Include="Elements\InputGroup.cs" />
+    <Compile Include="Elements\ISourceElement.cs" />
+    <Compile Include="Elements\Layout.cs" />
+    <Compile Include="Elements\List.cs" />
+    <Compile Include="Elements\ListItem.cs" />
+    <Compile Include="Elements\Menu.cs" />
+    <Compile Include="Elements\MenuItem.cs" />
+    <Compile Include="Elements\OrientationContainer.cs" />
+    <Compile Include="Elements\Form.cs" />
+    <Compile Include="Elements\Panel.cs" />
+    <Compile Include="Elements\Link.cs" />
+    <Compile Include="Elements\DividerMenuItem.cs" />
+    <Compile Include="Elements\DropMenu.cs" />
+    <Compile Include="Elements\Resources\UseBootstrap.cs" />
+    <Compile Include="Elements\SplitButton.cs" />
+    <Compile Include="Elements\Nav.cs" />
+    <Compile Include="Elements\NavItem.cs" />
+    <Compile Include="Elements\Table.cs" />
+    <Compile Include="Elements\TableBody.cs" />
+    <Compile Include="Elements\TableData.cs" />
+    <Compile Include="Elements\TableElement.cs" />
+    <Compile Include="Elements\TableHead.cs" />
+    <Compile Include="Elements\TableHeadData.cs" />
+    <Compile Include="Elements\TableRow.cs" />
+    <Compile Include="Elements\Label.cs" />
+    <Compile Include="Elements\RadioButton.cs" />
+    <Compile Include="Elements\Row.cs" />
+    <Compile Include="Elements\Select.cs" />
+    <Compile Include="Elements\SelectItem.cs" />
+    <Compile Include="Elements\TextArea.cs" />
+    <Compile Include="Elements\TextBox.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ValueProviders\AlignmentProvider.cs" />
+    <Compile Include="ValueProviders\BuildTypeProvider.cs" />
+    <Compile Include="ValueProviders\ButtonSizeProvider.cs" />
+    <Compile Include="ValueProviders\ButtonTypeProvider.cs" />
+    <Compile Include="ValueProviders\ColumnSpanProvider.cs" />
+    <Compile Include="ValueProviders\DropStyleProvider.cs" />
+    <Compile Include="ValueProviders\ImageStyleProvider.cs" />
+    <Compile Include="ValueProviders\InputSizeProvider.cs" />
+    <Compile Include="ValueProviders\ListTypeProvider.cs" />
+    <Compile Include="ValueProviders\NavBarPositionProvider.cs" />
+    <Compile Include="ValueProviders\NavTypeProvider.cs" />
+    <Compile Include="ValueProviders\OrientationProvider.cs" />
+    <Compile Include="ValueProviders\StateProvider.cs" />
+    <Compile Include="ValueProviders\TextTypeProvider.cs" />
+    <Compile Include="ValueProviders\ThemeProvider.cs" />
+    <Compile Include="ValueProviders\ValidationStateProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Quic\Quic.csproj">
+      <Project>{ebceb7b8-e45c-40de-be43-00d150b9bf3f}</Project>
+      <Name>Quic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bootstrap-theme.css.map" />
+    <None Include="Resources\bootstrap.css.map" />
+    <None Include="Resources\glyphicons-halflings-regular.eot" />
+    <None Include="Resources\glyphicons-halflings-regular.ttf" />
+    <None Include="Resources\glyphicons-halflings-regular.woff" />
+    <None Include="Resources\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bootstrap.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bootstrap.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bootstrap-theme.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bootstrap-theme.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bootstrap.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bootstrap.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jquery.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\npm.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\glyphicons-halflings-regular.svg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

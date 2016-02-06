@@ -1,0 +1,9 @@
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\bin\Release\Quic.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\bin\Release\Quic.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\obj\Release\Quic.Bootstrap.csprojResolveAssemblyReference.cache
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\obj\Release\Quic.Bootstrap.csproj.GenerateResource.Cache
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\bin\Release\Quic.Bootstrap.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\bin\Release\Quic.Bootstrap.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\obj\Release\Properties.Resources.resources
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\obj\Release\Quic.Bootstrap.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Bootstrap\obj\Release\Quic.Bootstrap.pdb

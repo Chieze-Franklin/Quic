@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EBF4015B-5A3F-4082-8049-E0DBF101EE76}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Quic.Core</RootNamespace>
+    <AssemblyName>Quic.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FileInitializers\HtmlFileInitializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValueProviders\BooleanProvider.cs" />
+    <Compile Include="ValueProviders\ByteProvider.cs" />
+    <Compile Include="ValueProviders\CharacterProvider.cs" />
+    <Compile Include="ValueProviders\ColorProvider.cs" />
+    <Compile Include="ValueProviders\DateTimeProvider.cs" />
+    <Compile Include="ValueProviders\DecimalProvider.cs" />
+    <Compile Include="ValueProviders\DoubleProvider.cs" />
+    <Compile Include="ValueProviders\FloatProvider.cs" />
+    <Compile Include="ValueProviders\ImageProvider.cs" />
+    <Compile Include="ValueProviders\IntegerProvider.cs" />
+    <Compile Include="ValueProviders\LongProvider.cs" />
+    <Compile Include="ValueProviders\PointFProvider.cs" />
+    <Compile Include="ValueProviders\PointProvider.cs" />
+    <Compile Include="ValueProviders\PropertyProvider.cs" />
+    <Compile Include="ValueProviders\ShortProvider.cs" />
+    <Compile Include="ValueProviders\SignedByteProvider.cs" />
+    <Compile Include="ValueProviders\SizeFProvider.cs" />
+    <Compile Include="ValueProviders\SizeProvider.cs" />
+    <Compile Include="ValueProviders\StringProvider.cs" />
+    <Compile Include="ValueProviders\UnsignedIntegerProvider.cs" />
+    <Compile Include="ValueProviders\UnsignedLongProvider.cs" />
+    <Compile Include="ValueProviders\UnsignedShortProvider.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Quic\Quic.csproj">
+      <Project>{ebceb7b8-e45c-40de-be43-00d150b9bf3f}</Project>
+      <Name>Quic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

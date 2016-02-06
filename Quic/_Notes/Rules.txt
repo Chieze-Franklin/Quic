@@ -1,0 +1,56 @@
+﻿The <Quic> tag______________________________________________________________________________________
+	Namespaces
+	Default Namespace
+	Options: AllowUnknown..., Ignore...Case
+	OutputFile 
+		You can supply a file initializer {HtmlFileInitializer}
+		You can just type {HtmlFile}, it will look for HtmlFileInitializer, then HtmlFileInitialiser (with an "s" instead of "z")
+================================
+The <Resources> tag______________________________________________________________________________________
+	The "Key" attribute
+		valid ID name
+	??Custom attributes are allowed
+
+The <UI> tag______________________________________________________________________________________
+	UI elements
+	UI container elements
+	The "Name" attribute
+	??Custom attributes are also allowed
+	Accessing properties of other tags, "{$}"
+
+Value Providers______________________________________________________________________________________
+	Getting a value provider using key {@sp}
+	Getting a value provider using class name {StringProvider}
+		You can ignore the "Provider" suffix {String}
+	Nested value providers {StringProvider {String}}
+	Default Property Provider {$}
+	Lazy evaluation {?}
+	Escaping the "{" char: "{{...}" will be interpreted to "{...}"
+===============================
+Repeat and RepeatCount___________________
+	Printing out RepeatCount
+		doesnt work well with containers
+		should be used in a lazily-evaluated attribute
+
+Unrecognized stuff_________________
+	AllowUnknownAttributes="true"
+    AllowUnknownTags="TRUE"
+	use <![CDATA[my escaped text]]>
+	use &amp; to output & (so to output "&amp", type "&amp;amp;")
+
+Comments________________
+	<!--out: will be outputed -->
+
+CDATA___________________
+	Quic is XML compliant, so to use scripts, put them in <![CDATA[ ... ]]>
+	If CDATA is not sufficient (most probably bcuz u need to include "]]>"), use a comment <!--cdata: ... -->
+
+Model/Data Binding_________
+	Not yet supported
+
+Creating Your Own Quic Elements_______________
+Messaging___________
+	Messenger.Prompt
+	Messenger.Notify
+
+[NotQuicProperty]

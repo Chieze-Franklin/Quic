@@ -1,0 +1,7 @@
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\bin\Debug\Quic.Core.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\bin\Debug\Quic.Core.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\bin\Debug\Quic.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\bin\Debug\Quic.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\obj\Debug\Quic.Core.csprojResolveAssemblyReference.cache
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\obj\Debug\Quic.Core.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\obj\Debug\Quic.Core.pdb

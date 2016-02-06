@@ -1,0 +1,1 @@
+An easy way to create rich web pages with no or limited knowledge of JavaScript and CSS

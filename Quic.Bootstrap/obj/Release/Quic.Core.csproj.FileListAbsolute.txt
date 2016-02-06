@@ -1,0 +1,9 @@
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\bin\Release\Quic.Core.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\bin\Release\Quic.Core.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\bin\Release\Quic.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\bin\Release\Quic.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\obj\Release\Quic.Core.csprojResolveAssemblyReference.cache
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\obj\Release\Quic.Core.dll
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\obj\Release\Quic.Core.pdb
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\obj\Release\Quic.Core.Properties.Resources.resources
+C:\Users\frank\Documents\Visual Studio 2013\Projects\Quic\Quic.Core\obj\Release\Quic.Core.csproj.GenerateResource.Cache

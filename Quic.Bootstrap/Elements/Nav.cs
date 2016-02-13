@@ -38,6 +38,10 @@ public class Nav : List
             outputFile.Write("<ul");
             outputFile.Write(EmitID());
             outputFile.Write(EmitClasses());
+
+            //custom properties
+            outputFile.Write(EmitCustomProperties());
+
             outputFile.WriteLine(">");
             foreach (var element in Elements)
             {

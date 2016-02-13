@@ -27,7 +27,7 @@ a php PI in body
        ?>
 <nav class=" navbar navbar-inverse navbar-fixed-top" role="navigation">
 <div class="navbar-header">
-<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu1-navbar-collapse">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu2-navbar-collapse">
 <span class="sr-only">Show/Hide</span>
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
@@ -35,7 +35,7 @@ a php PI in body
 </button>
 <a class="navbar-brand" href="#">Awesome Menu</a>
 </div>
-<div class="collapse navbar-collapse" id="menu1-navbar-collapse">
+<div class="collapse navbar-collapse" id="menu2-navbar-collapse">
 <span class="navbar-text">
         Signed in as 
 </span>
@@ -44,7 +44,7 @@ a php PI in body
 Tabs Example
 
 </p>
-<ul class=" nav nav-tabs">
+<ul id="myTab" class=" nav nav-tabs">
 <li class=" active"><a href="#home" data-toggle="tab">Home
 
 </a></li>
@@ -57,11 +57,11 @@ Java
 <b class="caret"></b>
 </a>
 <ul class="dropdown-menu" role="menu">
-<li role="presentation"><a role="menuitem" href="#jmeter">jmeter
+<li><a href="#jmeter" data-toggle="tab">jmeter
 
 </a></li>
 <li role="presentation" class=" divider"></li>
-<li role="presentation"><a role="menuitem" href="#ejb">ejb
+<li><a href="#ejb" data-toggle="tab">ejb
 
 </a></li>
 
@@ -104,6 +104,59 @@ tryit
 </p>
 </div>
 <div id="ejb" class=" tab-pane fade">
+<p>
+
+            Enterprise Java Beans (EJB) is a development architecture for building highly scalable and robust enterprise level applications to be 
+            deployed on J2EE compliant Application Server such as JBOSS, Web Logic etc.
+          
+
+</p>
+</div>
+</div>
+<script>
+$(function () { $('#myTab li:eq(1) a').tab('show'); });
+</script>
+<ul class=" nav nav-pills">
+<li><a href="#home2" data-toggle="pill">Home</a></li>
+<li><a href="#ios2" data-toggle="pill">iOS</a></li>
+<li><a href="#jmeter2" data-toggle="pill">jMeter</a></li>
+<li><a href="#ejb2" data-toggle="pill">EJB</a></li>
+</ul>
+<div class="tab-content">
+<div id="home2" class=" tab-pane fade in">
+<p>
+
+            Tutorials Point is a place for beginners in all technical areas. This website covers most of the latest technoligies and explains each of 
+            the technology with simple examples. You also have a 
+<b>
+tryit
+
+</b>
+ editor, wherein you can edit your code and try out different 
+            possibilities of the examples.
+          
+
+</p>
+</div>
+<div id="ios2" class=" tab-pane fade">
+<p>
+
+            iOS is a mobile operating system developed and distributed by Apple Inc. Originally released in 2007 for the iPhone, iPod Touch, and 
+            Apple TV. iOS is derived from OS X, with which it shares the Darwin foundation. iOS is Apple's mobile version of the OS X operating 
+            system used on Apple computers.
+          
+
+</p>
+</div>
+<div id="jmeter2" class=" tab-pane fade">
+<p>
+
+            jMeter is an Open Source testing software. It is 100% pure Java application for load and performance testing.
+          
+
+</p>
+</div>
+<div id="ejb2" class=" tab-pane fade">
 <p>
 
             Enterprise Java Beans (EJB) is a development architecture for building highly scalable and robust enterprise level applications to be 
@@ -644,7 +697,7 @@ My Fifth Button
 <div class=" col-md-6 col-lg-6 col-sm-6 col-xs-6">
 <div class=" row">
 <div class=" col-md-6 col-lg-6 col-sm-6 col-xs-6">
-<span><input type="checkbox" value="checkbox1"/><span class="glyphicon glyphicon-thumbs-up">My First Button</span></span><span class=" disabled"><input type="checkbox" value="checkbox2" checked disabled/>My Fifth Button</span><span><input type="radio" name="grp1" value="radio1"/><span class="glyphicon glyphicon-thumbs-up">My First Button</span></span><span class=" disabled"><input type="radio" name="grp1" value="radio2" checked disabled/>My Fifth Button</span><span class=" form-control"><input type="radio" value="radio3"/>My First Button</span><span class=" form-control disabled"><input type="radio" value="radio4" checked disabled/>My Fifth Button</span>
+<span><input type="checkbox" value="checkbox6"/><span class="glyphicon glyphicon-thumbs-up">My First Button</span></span><span class=" disabled"><input type="checkbox" value="checkbox7" checked disabled/>My Fifth Button</span><span><input type="radio" name="grp1" value="radio7"/><span class="glyphicon glyphicon-thumbs-up">My First Button</span></span><span class=" disabled"><input type="radio" name="grp1" value="radio8" checked disabled/>My Fifth Button</span><span class=" form-control"><input type="radio" value="radio9"/>My First Button</span><span class=" form-control disabled"><input type="radio" value="radio10" checked disabled/>My Fifth Button</span>
 </div>
 <div class=" col-md-6 col-lg-6 col-sm-6 col-xs-6">
 <TabPanel Disabled="true">
@@ -679,17 +732,17 @@ My Fifth Button
 </div>
 <div class="input-group">
 <span class="input-group-addon">#</span>
-<span class=" form-control"><input type="checkbox" value="checkbox3"/><span class="glyphicon glyphicon-thumbs-up">Prepend</span></span>
+<span class=" form-control"><input type="checkbox" value="checkbox8"/><span class="glyphicon glyphicon-thumbs-up">Prepend</span></span>
 
 </div>
 <div class="input-group">
 
-<span class=" disabled"><input type="checkbox" value="checkbox4" checked disabled/>Append</span>
+<span class=" disabled"><input type="checkbox" value="checkbox9" checked disabled/>Append</span>
 <span class="input-group-addon">@</span>
 </div>
 <div class="input-group">
 <span class="input-group-addon">#</span>
-<span class=" form-control"><input type="radio" name="grp1" value="radio5"/><span class="glyphicon glyphicon-thumbs-up">Both</span></span>
+<span class=" form-control"><input type="radio" name="grp1" value="radio11"/><span class="glyphicon glyphicon-thumbs-up">Both</span></span>
 <span class="input-group-addon">yeah</span>
 </div>
 <div class="input-group">
@@ -716,9 +769,9 @@ My Fifth Button
 </div>
 <div class=" input-group input-group-sm">
 <span class=" input-group-addon">
-<span><input type="radio" value="radio6"/></span></span>
+<span><input type="radio" value="radio12"/></span></span>
 <input type="text" class=" form-control" value=""/><span class=" input-group-addon">
-<span><input type="checkbox" value="checkbox5"/></span></span>
+<span><input type="checkbox" value="checkbox10"/></span></span>
 </div>
 <button class=" btn btn-default" type="button">0</button><button class=" btn btn-default" type="button">0</button><button class=" btn btn-default" type="button">0</button><button class=" btn btn-default" type="button">0</button><button class=" btn btn-default" type="button">0</button><button class=" btn btn-default" type="button">0</button><button class=" btn btn-default" type="button">1</button><button class=" btn btn-default" type="button">2</button><button class=" btn btn-default" type="button">3</button><button class=" btn btn-default" type="button">1</button><button class=" btn btn-default" type="button">2</button><button class=" btn btn-default" type="button">3</button><div class=" input-group input-group-lg">
 <span class=" input-group-btn">

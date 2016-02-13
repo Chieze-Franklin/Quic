@@ -120,7 +120,6 @@
     <Content Include="Tests\sample1.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="_Notes\Article.txt" />
     <Content Include="_Notes\ToDo.txt" />
   </ItemGroup>
   <ItemGroup>

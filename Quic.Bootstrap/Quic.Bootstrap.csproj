@@ -93,8 +93,7 @@
     <Compile Include="Elements\Select.cs" />
     <Compile Include="Elements\SelectItem.cs" />
     <Compile Include="Elements\TabPage.cs" />
-    <Compile Include="Elements\TabPane.cs" />
-    <Compile Include="Elements\TabPanes.cs" />
+    <Compile Include="Elements\TabPages.cs" />
     <Compile Include="Elements\TextArea.cs" />
     <Compile Include="Elements\TextBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

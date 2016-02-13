@@ -51,142 +51,30 @@
 							The class is then instantiated, and its <code>Render</code> method is called to emit the relevant codes and/or files.<br />
 							So we can say Quic allows you to delegate the dirty jobs to a class, and include that class in your HTML file as a custom tag.
 						</p>
+
+						<h2>Background</h2>
 						<p>
-							A quick (hehe, pun intended) example:<br />
-							Suppose I want to include a dark, fixed-to-top Bootstrap navbar on my page,<br />
-							<img width="600" height="200" src="./Quic2_files/navbar.png" /><br />
-							I could type the below code:
-<pre lang="html" id="pre0" style="margin-top: 0px;">
-&lt;<span class="code-type code-keyword">nav</span> <span class="code-keyword">class</span>=" navbar navbar-inverse navbar-fixed-top" <span class="code-keyword">role</span>="navigation">
-  &lt;<span class="code-type code-keyword">div</span> <span class="code-keyword">class</span>="navbar-header">
-    &lt;<span class="code-type code-keyword">button</span> <span class="code-keyword">type</span>="button" <span class="code-keyword">class</span>="navbar-toggle" <span class="code-keyword">data-toggle</span>="collapse" <span class="code-keyword">data-target</span>="#menu1-navbar-collapse">
-      &lt;<span class="code-type code-keyword">span</span> <span class="code-keyword">class</span>="sr-only">Show/Hide</span>&lt;/<span class="code-type code-keyword">span</span>>
-      &lt;<span class="code-type code-keyword">span</span> <span class="code-keyword">class</span>="icon-bar">&lt;/<span class="code-type code-keyword">span</span>>
-      &lt;<span class="code-type code-keyword">span</span> <span class="code-keyword">class</span>="icon-bar">&lt;/<span class="code-type code-keyword">span</span>>
-      &lt;<span class="code-type code-keyword">span</span> <span class="code-keyword">class</span>="icon-bar">&lt;/<span class="code-type code-keyword">span</span>>
-    &lt;/<span class="code-type code-keyword">button</span>>
-    &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">class</span>="navbar-brand" <span class="code-keyword">href</span>="#">The QUIC Framework&lt;/<span class="code-type code-keyword">a</span>>
-  &lt;/<span class="code-type code-keyword">div</span>>
-  &lt;<span class="code-type code-keyword">div</span> <span class="code-keyword">class</span>="collapse navbar-collapse" <span class="code-keyword">id</span>="menu1-navbar-collapse">
-    &lt;<span class="code-type code-keyword">ul</span> <span class="code-keyword">class</span>="nav navbar-nav">
-      &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
-        &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Introduction&lt;/<span class="code-type code-keyword">a</span>>
-      &lt;/<span class="code-type code-keyword">li</span>>
-      &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
-        &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">A Little Back-Story&lt;/<span class="code-type code-keyword">a</span>>
-      &lt;/<span class="code-type code-keyword">li</span>>
-      &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
-        &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Features and Advantages&lt;/<span class="code-type code-keyword">a</span>>
-      &lt;/<span class="code-type code-keyword">li</span>>
-      &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">class</span>="dropdown">
-        &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">class</span>=" dropdown-toggle navbar-btn" href="#" <span class="code-keyword">data-toggle</span>="dropdown">
-          Creating Your Own Quic Elements
-          &lt;<span class="code-type code-keyword">b</span> <span class="code-keyword">class</span>="caret">&lt;/<span class="code-type code-keyword">b</span>>
-        &lt;/<span class="code-type code-keyword">a</span>>
-        &lt;<span class="code-type code-keyword">ul</span> <span class="code-keyword">class</span>="dropdown-menu" <span class="code-keyword">role</span>="menu">
-          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
-            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">What You Should Know&lt;/<span class="code-type code-keyword">a</span>>
-          &lt;/<span class="code-type code-keyword">li</span>>
-          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation" <span class="code-keyword">class</span>=" divider">&lt;/<span class="code-type code-keyword">li</span>>
-          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
-            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Bootstrap&lt;/<span class="code-type code-keyword">a</span>>
-          &lt;/<span class="code-type code-keyword">li</span>>
-          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
-            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">React&lt;/<span class="code-type code-keyword">a</span>>
-          &lt;/<span class="code-type code-keyword">li</span>>
-          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
-            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Angular&lt;/<span class="code-type code-keyword">a</span>>
-          &lt;/<span class="code-type code-keyword">li</span>>
-          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation" <span class="code-keyword">class</span>=" divider">&lt;/<span class="code-type code-keyword">li</span>>
-          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation" <span class="code-keyword">class</span>=" dropdown-header">My Custom Quic Elements&lt;/<span class="code-type code-keyword">li</span>>
-          &lt;<span class="code-type code-keyword">li</span> <span class="code-keyword">role</span>="presentation">
-            &lt;<span class="code-type code-keyword">a</span> <span class="code-keyword">role</span>="menuitem" <span class="code-keyword">href</span>="">Ed&lt;/<span class="code-type code-keyword">a</span>>
-          &lt;/<span class="code-type code-keyword">li</span>>
-        &lt;/<span class="code-type code-keyword">ul</span>>
-      &lt;/<span class="code-type code-keyword">li</span>>
-    &lt;/<span class="code-type code-keyword">ul</span>>
-  &lt;/<span class="code-type code-keyword">div</span>>
-&lt;/<span class="code-type code-keyword">nav</span>>
-</pre>
-							Not only is the above code quite long, it is also not the prettiest thing to the eye.<br />
-							To make my page easy on the eye, I created a few C# classes like Menu, MI (or MenuItem), DropMenu, and delegated to them the
-							responsibility of producing the appropriate codes. I then include those classes on my page, as shown below:
-<pre lang="html" id="pre0" style="margin-top: 0px;">
-&lt;<span class="code-type code-keyword">Menu</span> <span class="code-keyword">Text</span>="The QUIC Framework" <span class="code-keyword">Collapsible</span>="true" <span class="code-keyword">Theme</span>="dark" <span class="code-keyword">Position</span>="fixedtop">
-  &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Introduction&lt;/<span class="code-type code-keyword">MI</span>>
-  &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">A Little Back-Story&lt;/<span class="code-type code-keyword">MI</span>>
-  &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Features and Advantages&lt;/<span class="code-type code-keyword">MI</span>>
-  &lt;<span class="code-type code-keyword">DropMenu</span> <span class="code-keyword">Text</span>="Creating Your Own Quic Elements" <span class="code-keyword">DropStyle</span>="down">
-    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">What You Should Know&lt;/<span class="code-type code-keyword">MI</span>>
-    &lt;<span class="code-type code-keyword">Divider</span> />
-    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Bootstrap&lt;/<span class="code-type code-keyword">MI</span>>
-    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">React&lt;/<span class="code-type code-keyword">MI</span>>
-    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Angular&lt;/<span class="code-type code-keyword">MI</span>>
-    &lt;<span class="code-type code-keyword">Divider</span> />
-    &lt;<span class="code-type code-keyword">Header</span> <span class="code-keyword">Text</span>="My Custom Quic Elements" />
-    &lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">Ed&lt;/<span class="code-type code-keyword">MI</span>>
-  &lt;/<span class="code-type code-keyword">DropMenu</span>>
-&lt;/<span class="code-type code-keyword">Menu</span>>
-</pre>
-						Apart from the obvious advantages of being shorter in length and easier to read, even a first-timer to web development knows
-						exactly what you are trying to achieve. That is, Quic makes your code more intuitive.
-						</p>
-						<p>
-							Some of the advantages of Quic include:
+							In the first part of this article (<a 
+							href="http://www.codeproject.com/Articles/1077305/Introducing-the-Quic-Web-Development-Framework-Par">Introducing the Quic Web 
+							Development Framework - Part 1</a>) we were introduced to the Quic framework, its uses, the ideas behind it, and its advantages.<br />
+							Some of the advantages we mentioned are:
 							<ul>
 								<li>
 									<b>There are no tags.</b><br />
-									Quic has no custom tags of its own. So, technically, you don't have a lot of new things to learn. 
-									Custom tags are created by developers. (A good number of times you may find yourself as both the creator and consumer of
-									your custom tags.) Quic simply finds classes with the same names as the custom tags in appropriate
-									assemblies (using reflection), and invoke the <code>Render</code> methods of such classes. Developers of such custom 
-									tags should endeavour to provide adequate documentation for their custom tags.<br />
-									As a consumer of such tags, you simply need to learn the tags you need for the job at hand.
+									Quic has no custom tags of its own. So, technically, you don't have a lot of new things to learn.
 								</li>
 								<li>
-									<b>Works well with any XML document.</b><br />
-									Quic expects your document to be XML-compliant. This means you can use it with different types of documents like XAML and
-									Android XML. But it also means that to use it with your HTML file, your HTML should really be XHTML.
+									<b>Works well with any XML document.</b>
 								</li>
 								<li>
-									<b>More readable code.</b><br />
-									One of the foundational ideas behind Quic is that, instead of using general-purpose tags like <code>&lt;div></code> to
-									represent different constructs, we should use custom tags with names that adequately state their purposes. In the Quic
-									example above, you can easily tell (or guess) what tags like <code>&lt;DropMenu></code> and 
-									<code>&lt;Divider></code> represent/do.<br />
-									Similarly, you don't have to keep in memory all the CSS classes that are needed to make a <code>&lt;div></code> look like
-									a drop menu; you simply use the <code>&lt;DropMenu></code> tag, and let it emit the relevant CSS codes.
+									<b>Quic makes your code more readable.</b>
 								</li>
 								<li>
-									<b>Easy to refactor.</b><br />
-									Quic makes refactoring easier because the refactoring can be done in the <code>Render</code> method of the appropriate
-									class. If you need to change the markup that defines an element, say a table, instead of going through all your HTML
-									files to effect such changes, you can simply do it in just one place: in the <code>Render</code> method of the appropriate
-									class.<br />
-									Tomorrow I may decide not to use Bootstrap at all. All I will need to do is to change what is emitted by the various
-									<code>Render</code> methods of my various classes; my numerous HTML pages do not need to be changed a bit.
+									<b>Easy to refactor.</b>
 								</li>
 								<li>
 									<b>Quic does more than just emit code.</b><br />
-									Quic doesn't just emit codes, it can create needed files in the output directory.<br />
-									For instance, I wrote a class called <code>UseBootstrap</code> 
-									[<em class="file-path">Quic.Bootstrap\Elements\Resources\UseBootstrap.cs</em>]. It is a resource element (inherits from
-									<code>Quic.ResourceElement</code> [<em class="file-path">Quic\Core\Elements\ResourceElement.cs</em>]), so you include it 
-									within the <code>&lt;head></code> tag of your HTML file.
-<pre lang="html" id="pre0" style="margin-top: 0px;">
-&lt;<span class="code-type code-keyword">head</span>>
-  &lt;<span class="code-type code-keyword">UseBootstrap</span> />
-&lt;/<span class="code-type code-keyword">head</span>>
-</pre>
-									What this element does is to create all the necessary Bootstrap files, as can be seen in the <code>Render</code> method
-									of the <code>UseBootstrap</code> class.<br />
-									<img width="600" height="250" src="./Quic2_files/usebootstrap_render.png" /><br />
-									In the method <code>CheckForNecessaryFiles()</code>, relevant missing files are created.<br />
-									<img width="600" height="500" src="./Quic2_files/usebootstrap_checkfornecessaryfiles.png" /><br />
-									This demonstrates that (unlike some similar technologies) Quic elements (custom tags) have the ability to write to the
-									output directory.<br />
-									Note that Quic tags do <em>NOT</em> have access to any directory outside the output directory, and the output
-									directory is always chosen by the user.
+									Quic doesn't just emit codes, it can create needed files in the output directory.
 								</li>
 								<li>
 									<b>Works well with other web frameworks.</b><br />
@@ -194,36 +82,13 @@
 									looking for custom tags that make sense to it. Every other content on the file is left untouched.
 								</li>
 							</ul>
+							We ended the article with a healthy discussion of the Quic-specific attributes expected in a <code>&lt;html></code> tag.
 						</p>
 						<p>
-							<span class="code-comment">
-							As at the time this idea struck me I was not aware of existing similar solutions. However, as I progressed deeper into the project,
-							I ran into technologies and frameworks like Facebook's React and helpers in ASP.NET that serve similar purposes.
-							</code>
-						</p>
-
-						<h2>Background</h2>
-						<p>
-							I'm not primarily a web developer, so I tend to favour <i>short-cuts</i> when working on web applications. Any time I come across
-							a cool web user interface component I always find myself wishing there was a function I could just call and have it emit all the
-							HTML mark-ups (usually <code>&lt;div></code> tags), CSS classes and JavaScript codes needed to produce such a component. I am
-							also put off by how untidy these mark-ups and scripts always look. What more, I would love to easily <em>reuse</em> these 
-							components, in much the same way we reuse components in, say, C#.
-						</p>
-						<p>
-							That is how the idea behind Quic came about, some years ago. Since its inception the idea has undergone many changes.
-							Initially, Quic wasn't built with HTML in mind; it was built to work with any user interface mark-up language. It is only in 
-							recent month that I decided to position Quic as a web technology. Some of the reasons for that include the fact that most people
-							will use it with HTML (as against XAML, or Android XML); and focusing it on the web makes it easier to explain. Also, by
-							focusing on the web I got to remove those areas of the source code that existed to make Quic <em>generic</em>. Thus, I have a
-							slimmer code base.
-						</p>
-						<p>
-							QUIC means <em>Quic User Interface C...</em> I can't remember what C originally meant. It may have been <em>Creator</em> or 
-							<em>Converter</em><br />
-							The snail logo <img width="16" height="16" src="./Quic2_files/quic.png" /> was chosen rather playfully to be an antonym to the idea 
-							of the project, snails being slow. But, perhaps, it also represents laziness, Quic being targeted at lazy web developers, 
-							like myself, who like to get more done by doing little.
+							In this article, we'll begin by refreshing our memories of the <a href="#quic_bar">Quic bar</a>. We will take a look at what Quic 
+							expects to find in the <code><a href="#head">&lt;head></a></code> and <code><a href="#body">&lt;body></a></code> tags. We will then 
+							learn about <a href="#val_prvdr">value providers</a>. Finally, I will list all the custom tags (and their respective attributes) 
+							defined in the assemblies packaged with this article so that you can start utilizing them in your web pages.
 						</p>
 						<p>
 							To successfully follow the source codes in this framework, all you need is a healthy knowledge of C#. Two of the core namespaces
@@ -237,12 +102,12 @@
 						<h3>System Requirements</h3>
 						<p>
 							<ul>
-								<li>The app was built on a Windows 8 machine, but should run with no modification on Windows 7 and Windows 10.</li>
+								<li>The app was originally built on a Windows 8 machine, but should run with no modification on Windows 7 and Windows 10.</li>
 								<li>The target framework is .NET Framework 4.5, but the source code can be built against many previous versions, as
-								well as .NET Framework 4.6.</li>
+								well as future versions.</li>
 							</ul>
-						</p>
-						<h3>The Quic Bar</h3>
+						</p>************************************************************************************
+						<h3><a name="quic_bar" id="quic_bar">The Quic Bar<a/></h3>
 						<p>
 							I am assuming you have downloaded (and extracted files from) the relevant zip files.
 							<ul>
@@ -279,10 +144,6 @@
 							</ul>
 						</p>
 						<h3>Using Quic Custom Tags on Your Web Pages</h3>
-						<p>
-							Although Quic was originally built to work with any kind of file, it now focuses more on HTML file. Quic expects XML-compliant 
-							files. So, you are really working with XHTML files. Quic cares little about the extension of your file.
-						</p>
 						
 						<h4>Basic Structure</h4>
 						<p>
@@ -299,7 +160,7 @@
 							The <code>&lt;head></code> and <code>&lt;body></code> tags will be looked into in the next article.
 						</p>
 						
-						<h3>The &lt;html> Tag</h3>
+						<h3><a name="head" id="head">The &lt;head> Tag</a></h3>
 						<p>
 							The <code>&lt;html></code> tag contains three classes of attributes relevant to Quic: 
 							<ol>
@@ -308,6 +169,10 @@
 							<li><a href="#out_file">Output file attribute</a></li>
 							</ol>
 						</p>
+						
+						<h3><a name="body" id="body">The &lt;body> Tag</a></h3>
+						<h3><a name="val_prvdr" id="val_prvdr">Value Providers</a></h3>
+						<h3><a name="manifest" id="manifest">A Proposal for a Manifest File</a></h3>
 						
 						<h4><a name="namespace" id="namespace">Namespace attributes</a></h4>
 						<p>

@@ -57,43 +57,74 @@
         <NI Link="#ios">iOS</NI>
         <DropMenu Text="Java" DropStyle="down" State="active">
 
-          <MI Link="#jmeter">jmeter</MI>
+          <NI Link="#jmeter">jmeter</NI>
           <Divider />
-          <MI Link="#ejb">ejb</MI>
+          <NI Link="#ejb">ejb</NI>
 
         </DropMenu>
       </Nav>
 
-      <TabPanes>
-        <TabPane Name="home">
+      <TabPages>
+        <TabPage Name="home">
           <p>
             Tutorials Point is a place for beginners in all technical areas. This website covers most of the latest technoligies and explains each of 
             the technology with simple examples. You also have a <b>tryit</b> editor, wherein you can edit your code and try out different 
             possibilities of the examples.
           </p>
-        </TabPane>
+        </TabPage>
 
-        <TabPane Name="ios">
+        <TabPage Name="ios">
           <p>
             iOS is a mobile operating system developed and distributed by Apple Inc. Originally released in 2007 for the iPhone, iPod Touch, and 
             Apple TV. iOS is derived from OS X, with which it shares the Darwin foundation. iOS is Apple's mobile version of the OS X operating 
             system used on Apple computers.
           </p>
-        </TabPane>
+        </TabPage>
 
-        <TabPane Name="jmeter">
+        <TabPage Name="jmeter">
           <p>
             jMeter is an Open Source testing software. It is 100% pure Java application for load and performance testing.
           </p>
-        </TabPane>
+        </TabPage>
 
-        <TabPane Name="ejb">
+        <TabPage Name="ejb">
           <p>
             Enterprise Java Beans (EJB) is a development architecture for building highly scalable and robust enterprise level applications to be 
             deployed on J2EE compliant Application Server such as JBOSS, Web Logic etc.
           </p>
-        </TabPane>
-      </TabPanes>
+        </TabPage>
+      </TabPages>
+      
+      <TabControl Type="pills">
+        <TabPage Name="home2" Text="Home">
+          <p>
+            Tutorials Point is a place for beginners in all technical areas. This website covers most of the latest technoligies and explains each of 
+            the technology with simple examples. You also have a <b>tryit</b> editor, wherein you can edit your code and try out different 
+            possibilities of the examples.
+          </p>
+        </TabPage>
+
+        <TabPage Name="ios2" Text="iOS">
+          <p>
+            iOS is a mobile operating system developed and distributed by Apple Inc. Originally released in 2007 for the iPhone, iPod Touch, and 
+            Apple TV. iOS is derived from OS X, with which it shares the Darwin foundation. iOS is Apple's mobile version of the OS X operating 
+            system used on Apple computers.
+          </p>
+        </TabPage>
+
+        <TabPage Name="jmeter2" Text="jMeter">
+          <p>
+            jMeter is an Open Source testing software. It is 100% pure Java application for load and performance testing.
+          </p>
+        </TabPage>
+
+        <TabPage Name="ejb2" Text="EJB">
+          <p>
+            Enterprise Java Beans (EJB) is a development architecture for building highly scalable and robust enterprise level applications to be 
+            deployed on J2EE compliant Application Server such as JBOSS, Web Logic etc.
+          </p>
+        </TabPage>
+      </TabControl>
       
       <p>Pills Example</p>
       <Nav Type="Pills">

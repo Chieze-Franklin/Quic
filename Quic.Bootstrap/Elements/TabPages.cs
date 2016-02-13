@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Quic;
 
-public class TabPanes : BootstrapContainerElement
+public class TabPages : BootstrapContainerElement
 {
-    public TabPanes()
+    public TabPages()
     {
         CssClasses.Add("tab-content");
     }

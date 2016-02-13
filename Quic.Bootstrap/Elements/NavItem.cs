@@ -28,9 +28,23 @@ public class NavItem : MenuItem
 
             //data-toggle
             var dataToggle = "tab";
+            Nav navParent = null;
+            //----------
             if (ParentElement is Nav)
+                navParent = (Nav)ParentElement;
+            else if (ParentElement is DropMenu) 
             {
-                var navParent = (Nav)ParentElement;
+                if (ParentElement.ParentElement is Nav) //if the containing <DropMenu> is in a <Nav>
+                    navParent = (Nav)ParentElement.ParentElement;
+            }
+            else if (ParentElement is Drop && ParentElement.ParentElement is DropMenu)
+            {
+                if (ParentElement.ParentElement.ParentElement is Nav) //if the containing <Drop> is in a <DropMenu> which is in a <Nav>
+                    navParent = (Nav)ParentElement.ParentElement.ParentElement;
+            }
+            //----------
+            if (navParent != null)
+            {
                 if (navParent.Type == NavType.JustifiedPills || navParent.Type == NavType.Pills || navParent.Type == NavType.VerticalPills)
                 {
                     dataToggle = "pill";

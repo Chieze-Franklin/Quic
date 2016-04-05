@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<Manifest>
+	<Element Name="Addon" Type="UI" Extends="BootstrapContainerElement" IsContainer="true">
+		<Description>Represents an add-on in an input group</Description>
+	</Element>
+	<Element Name="Breadcrumb" Type="UI" Extends="List" IsContainer="true" />
+	<Element Name="BreadcrumbItem" Type="UI" Extends="NavItem" IsContainer="true" />
+	<Element Name="Button" Type="UI" Extends="InputElement" IsContainer="false">
+		<Properties>
+			<Property Name="ButtonSize" Type="ButtonSize">
+				<Description>
+					Gets or sets the button size
+				</Description>
+			</Property>
+			<Property Name="ButtonType" Type="ButtonType">
+				<Description>
+					Gets or sets the button type
+				</Description>
+			</Property>
+			<Property Name="IsBlock" Type="bool">
+				<Description>
+					Gets or sets a value to determine if the button should act as a block element.
+					That is, if it should span the full width of its parent.
+				</Description>
+			</Property>
+			<Property Name="IsSubmit" Type="bool">
+				<Description>
+					Gets or sets a value to determine if the button should act as a form submit button.
+				</Description>
+			</Property>
+		</Properties>
+	</Element>
+	<!--<Element Name="" Type="UI" Extends="" IsContainer="true">
+		<Properties>
+			<Property Name="" Type="" AllowedValues=",,">
+				<Description></Description>
+			</Property>
+		</Properties>
+		
+		<Description></Description>
+	</Element>-->
+</Manifest>

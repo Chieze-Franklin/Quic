@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<html xmlns="Quic.Bootstrap.dll"
+      xmlns:core="Quic.Core.dll"
+      xmlns:StringProvider="Quic.Core.dll:StringProvider"
+      xmlns:String="Quic.Core.dll:String"
+      
+      AllowUnknownAttributes="true"
+	    AllowUnknownTags="true"
+	    IgnoreAttributeCase="false"
+	    IgnoreTagCase="false"
+	  
+      OutputFile="{core:HtmlFile sample.html}">
+
+  <head>
+    <UseBootstrap />
+    <ColorProvider Key="cp" />
+    <StringProvider Key="sp" />
+  </head>
+  <body>
+    <Form Build="Local" Orientation="Vertical" Icon="Icon.png">
+      <Menu Text="Awesome Menu" Collapsible="true" Theme="dark" Position="fixedtop">
+        
+        <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+        <MI Link="">{@sp Second SubMenu Item}</MI>
+        <MI Link="">{StringProvider Third SubMenu Item}</MI>
+        <Divider />
+        <MI Link="">{String Fourth SubMenu Item}</MI>
+    
+        <DropMenu Text="DropDown Menu" GlyphIcon="thumbs-up" DropStyle="down">
+          
+            <Header Text="Just under a divider" />
+            <MI Link="" GlyphIcon="user">First SubMenu Item</MI>
+            <MI Link="">{@sp Second SubMenu Item}</MI>
+            <MI Link="">{StringProvider Third SubMenu Item}</MI>
+            <Divider />
+            <MI Link="">{String Fourth SubMenu Item}</MI>
+          
+        </DropMenu>
+        
+      </Menu>
+      
+      <br /><br /><br /><br />
+
+      <TabControl Type="pills">
+        <TabPage Name="res" Text="Resource Elements">
+          <p>
+            With respect to Quic, the <code>&amp;lt;head></code> tag is expected to contain <em>resource elements</em>. These elements usually 
+						do not contribute to the UI of the web page directly, instead serving as <em>helpers</em> for UI elements.<br />
+						Resource elements inherit from the class <code>Quic.ResourceElement</code> 
+						[<em class="file-path">Quic\Core\Elements\ResourceElement.cs</em>]. <code>Quic.ResourceElement</code> inherits from the class
+						<code>Quic.Element</code> [<em class="file-path">Quic\Core\Elements\Element.cs</em>], and adds a string member property 
+						called <code>Key</code>. This property can be set from mark-up.<br />
+						In every Quic document, resource elements with their <code>Key</code> attributes set to a valid identifier are stored in a 
+						resource dictionary (this implies two resource elements cannot have the same key), and can be referenced many times in the document using 
+						their keys. We will see how to reference resource elements when we discuss <a href="#val_prvdr">value providers</a>.<br />
+						Resource elements with no <code>Key</code> attributes set are invoked (usually by calling their <code>Render</code> methods) only 
+						once, when the output file is being generated, and discarded afterwards.<br />
+						In the sample document shown above, looking at lines 18-20, you can see 3 resource elements: <code>&lt;UseBootstrap></code>,
+						<code>&lt;ColorProvider></code> and <code>&lt;StringProvider></code>. Notice that the first has no <code>Key</code> attribute set.
+						That is because we need that particular resource element only once in the document (to create the necessary bootstrap files).
+          </p>
+        </TabPage>
+
+        <TabPage Name="ui" Text="UI Elements">
+          <p>
+            With respect to Quic, the <code>&amp;lt;body></code> tag contains <em>UI elements</em>. Theses elements define the user interface of 
+						the document.<br />
+						UI elements inherit from the class <code>Quic.UIElement</code> 
+						[<em class="file-path">Quic\Core\Elements\UIElement.cs</em>]. <code>Quic.UIElement</code> inherits from the class
+						<code>Quic.Element</code> [<em class="file-path">Quic\Core\Elements\Element.cs</em>], and adds many UI-centric properties that
+						can be set from mark-up, like <code>BackColor</code>, <code>Text</code>, <code>Width</code>.<br />
+						All elements (UI and resource elements) come with a <code>Name</code> property that can be set from mark-up. In every Quic
+						document, elements with their <code>Name</code> attributes set to a valid identifier are stored in an element dictionary
+						(this implies two elements cannot have the same name). This is of particular importance to UI elements because giving a UI element
+						a name allows the attributes of that element to be accessed in other parts of the document.
+          </p>
+        </TabPage>
+
+        <TabPage Name="ui2" Text="Value Providers">
+          <p>
+            <Table Text="Awesome Table" Bordered="true" 
+                   Condensed="{$Bordered}" 
+                   Hover="{$this.Bordered}" 
+                   Striped="{$self.Bordered}">
+              <THead>
+                <TR>
+                  <TH Context="Active">
+                    Property
+                  </TH>
+                  <TH Context="Danger">
+                    Column 2
+                  </TH>
+                  <TH Context="Success">
+                    Column 3
+                  </TH>
+                </TR>
+              </THead>
+      
+              <TBody>
+                <TR>
+                  <TD Context="Active">
+                    <Button Name="btn1" Text="My First Button" />
+                  </TD>
+                  <TD  Context="Danger">
+                    <Button Name="btn2" Text="{$btn1.Text}" />
+                  </TD>
+                  <TD Context="Success">
+                    <Button Text="{$btn1.Text}" />
+                  </TD>
+                </TR>
+                <TR>
+                  <TD>
+                    <Button Name="btn4" Text="{StringProvider My Fourth Button}" />
+                  </TD>
+                  <TD>
+                    <Button Name="btn5" Text="{String My Fifth Button}" />
+                  </TD>
+                  <TD>
+                    <Button Name="{@sp btn6}" Text="{@sp {String My Sixth Button}}" />
+                  </TD>
+                </TR>
+                <TR Context="Active">
+                  <TD Context="{?$parent.Context}">
+                    <DropButton Text="My First DropButton" ButtonType="success" IsFormControl="true"  DropStyle="up">
+                      <!--<Drop> optional tag (you can directly insert the links into the <DropButton> as I have done here)-->
+                        <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+                        <MI Link="">{StringProvider Second SubMenu Item}</MI>
+                        <MI Link="">{String Third SubMenu Item}</MI>
+                        <Divider />
+                        <Header Text="{?$parent.Text}" />
+                        <MI Link="">{@sp Fourth SubMenu Item}</MI>
+                      <!--</Drop>-->
+                    </DropButton>
+                  </TD>
+                  <TD>
+                    <Button Text="{?$btn8.Text}" ButtonType="success" ng-model="angularJsModel" />
+                  </TD>
+                  <TD>
+                    <Button Name="btn8" Text="My Eighth Button" InputSize="lg" ButtonSize="lg" IsBlock="true" ButtonType="primary" 
+                        GlyphIcon="bell" />
+                  </TD>
+                </TR>
+              </TBody>
+            </Table>
+          </p>
+        </TabPage>
+      </TabControl>
+    </Form>
+  </body>
+</html>

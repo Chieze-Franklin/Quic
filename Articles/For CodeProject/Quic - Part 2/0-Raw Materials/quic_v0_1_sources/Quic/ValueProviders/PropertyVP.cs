@@ -67,7 +67,7 @@ namespace Quic
                 }
                 else if (objName == "parent")
                 {
-                    obj = ((UIElement)Element).ParentElement;
+                    obj = Element.ParentElement;
                 }
                 else 
                 {

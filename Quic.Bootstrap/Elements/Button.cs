@@ -8,7 +8,7 @@ using Quic;
 public class Button : InputElement
 {
     bool isBlock;
-    ButtonType context;
+    ButtonType btnType;
     ButtonSize btnSz;
 
     public Button()
@@ -107,11 +107,11 @@ public class Button : InputElement
     public bool IsSubmit { get; set; }
 
     /// <summary>
-    /// Gets or sets the context
+    /// Gets or sets the button type
     /// </summary>
     public ButtonType ButtonType
     {
-        get { return context; }
+        get { return btnType; }
         set
         {
             if (value == ButtonType.Default)
@@ -202,7 +202,7 @@ public class Button : InputElement
                     CssClasses.Remove("btn-warning");
             }
 
-            context = value;
+            btnType = value;
         }
     }
 

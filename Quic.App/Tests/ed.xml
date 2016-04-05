@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 
-<html xmlns="Quic.Bootstrap.dll"
-      xmlns:core="Quic.Core.dll"
-      xmlns:math="Quic.Ed.dll:Quic.Ed.Math"
+<html xmlns="..\..\Quic.Bootstrap\bin\Release\Quic.Bootstrap.dll"
+      xmlns:core="..\..\Quic.Core\bin\Release\Quic.Core.dll"
+      xmlns:math="..\..\Quic.Ed\bin\Release\Quic.Ed.dll:Quic.Ed.Math"
       
       IgnoreAttributeCase="false"
       OutputFile="{core:HtmlFile ed.html}">

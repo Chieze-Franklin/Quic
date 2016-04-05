@@ -37,8 +37,8 @@
 
 					<div id="contentdiv" class="text" itemprop="articleBody">
 						<ul class="download">
-							<li><a href="./quic_v0_1_sources.zip">Download Quic v0.1 Source Codes - 598 KB</a></li>
-							<li><a href="./samples.zip">Download Quic Samples - 493 KB</a></li>
+							<li><a href="./quic_v0_1_sources.zip">Download Quic v0.1 Source Codes - 606 KB</a></li>
+							<li><a href="./samples.zip">Download Quic Samples - 402 KB</a></li>
 							<li><a href="https://github.com/Chieze-Franklin/Quic">GitHub repo</a></li>
 						</ul>
 
@@ -106,9 +106,10 @@
 								<li>The target framework is .NET Framework 4.5, but the source code can be built against many previous versions, as
 								well as future versions.</li>
 							</ul>
-						</p>************************************************************************************
+						</p>
 						<h3><a name="quic_bar" id="quic_bar">The Quic Bar<a/></h3>
 						<p>
+							You can skip this part if you have read it in the previous article.<br />
 							I am assuming you have downloaded (and extracted files from) the relevant zip files.
 							<ul>
 								<li>
@@ -150,200 +151,383 @@
 							Because of the focus on HTML documents, Quic expects the root tag of the document to be <code>&lt;html></code>. 
 							Quic expects your <code>&lt;html></code> tag to have <code>&lt;head></code> and <code>&lt;body></code> tags. These tags are always
 							in lower case.<br />
-							The <code>&lt;html></code> tag is expected to have certain attributes that determine how the document is processed. We will take
-							a close look at the <code>&lt;html></code> tag in this article.<br />
-							The <code>&lt;head></code> tag is expected to contain <em>resource elements</em>. These elements usually hold resources that
-							can be used over and over in the document.<br />
-							The <code>&lt;body></code> tag contains <em>UI elements</em>. Theses elements define the user interface of the document.<br />
+							In the first part of this write up we looked at the <code>&lt;html></code> tag, and the Quic-specific attributes expected in it.
+							These attributes were classified into <em>namespace attributes</em>, <em>processing option attributes</em>, and the <em>output file
+							attribute</em>.<br />
+							Here we discuss the <code>&lt;head></code> and <code>&lt;body></code> tags.
 							A sample Quic document is shown below.<br />
-							<img width="600" height="590" src="./Quic2_files/ed.xml.png" /><br />
-							The <code>&lt;head></code> and <code>&lt;body></code> tags will be looked into in the next article.
+							<img width="600" height="590" src="./Quic2_files/sample.xml.png" />
 						</p>
 						
 						<h3><a name="head" id="head">The &lt;head> Tag</a></h3>
 						<p>
-							The <code>&lt;html></code> tag contains three classes of attributes relevant to Quic: 
-							<ol>
-							<li><a href="#namespace">Namespace attributes</a></li>
-							<li><a href="#proc_opt">Processing option attributes</a></li>
-							<li><a href="#out_file">Output file attribute</a></li>
-							</ol>
+							With respect to Quic, the <code>&lt;head></code> tag is expected to contain <em>resource elements</em>. These elements usually 
+							do not contribute to the UI of the web page directly, instead serving as <em>helpers</em> for UI elements.<br />
+							Resource elements inherit from the class <code>Quic.ResourceElement</code> 
+							[<em class="file-path">Quic\Core\Elements\ResourceElement.cs</em>]. <code>Quic.ResourceElement</code> inherits from the class
+							<code>Quic.Element</code> [<em class="file-path">Quic\Core\Elements\Element.cs</em>], and adds a string member property 
+							called <code>Key</code>. This property can be set from mark-up.<br />
+							In every Quic document, resource elements with their <code>Key</code> attributes set to a valid identifier are stored in a 
+							resource dictionary (this implies two resource elements cannot have the same key), and can be referenced many times in the document using 
+							their keys. We will see how to reference resource elements when we discuss <a href="#val_prvdr">value providers</a>.<br />
+							Resource elements with no <code>Key</code> attributes set are invoked (usually by calling their <code>Render</code> methods) only 
+							once, when the output file is being generated, and discarded afterwards.<br />
+							In the sample document shown above, looking at lines 16-18, you can see 3 resource elements: <code>&lt;UseBootstrap></code>,
+							<code>&lt;ColorProvider></code> and <code>&lt;StringProvider></code>. Notice that the first has no <code>Key</code> attribute set.
+							That is because we need that particular resource element only once in the document (to create the necessary bootstrap files).
 						</p>
 						
 						<h3><a name="body" id="body">The &lt;body> Tag</a></h3>
-						<h3><a name="val_prvdr" id="val_prvdr">Value Providers</a></h3>
-						<h3><a name="manifest" id="manifest">A Proposal for a Manifest File</a></h3>
+						<p>
+							With respect to Quic, the <code>&lt;body></code> tag contains <em>UI elements</em>. These elements define the user interface of 
+							the document.<br />
+							UI elements inherit from the class <code>Quic.UIElement</code> 
+							[<em class="file-path">Quic\Core\Elements\UIElement.cs</em>]. <code>Quic.UIElement</code> inherits from the class
+							<code>Quic.Element</code> [<em class="file-path">Quic\Core\Elements\Element.cs</em>], and adds many UI-centric properties that
+							can be set from mark-up, like <code>BackColor</code>, <code>Text</code>, <code>Width</code>.<br />
+							All elements (UI and resource elements) come with a <code>Name</code> property that can be set from mark-up. In every Quic
+							document, elements with their <code>Name</code> attributes set to a valid identifier are stored in an element dictionary
+							(this implies two elements cannot have the same name). This is of particular importance to UI elements because giving a UI element
+							a name allows the attributes of that element to be accessed in other parts of the document. For instance, on line 106, we set the
+							text property of the button element named <em>btn2</em> to the value of the text property of the element named <em>btn1</em>.
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn2" <span class="code-keyword">Text</span>="{$btn1.Text}" />
+</pre>
+							This notation will be explained further under <a href="#val_prvdr">value providers</a> but the syntax is simple to grasp. To access
+							the value of an element's attribute, start with an opening brace <code>{</code> followed by a dollar sign <code>$</code> then the
+							element's name then period <code>.</code> then the attribute name then a closing brace <code>}</code>.
+						</p>
 						
-						<h4><a name="namespace" id="namespace">Namespace attributes</a></h4>
+						<h3><a name="val_prvdr" id="val_prvdr">Value Providers</a></h3>
 						<p>
-							Namespace attributes define the namespaces utilized in the document. To explain namespaces we will work with the 
-							<em>ed.xml</em> document shown above.
+							When assigning a value to an attribute, the value can either be a <em>literal</em> value or an <em>expression</em> value.<br />
+							A literal value simply starts with a quotation mark and ends with a matching quotation mark, and always represents a string object.
+							In the example shown below, the <code>Text</code> attribute of the <code>&lt;Button></code> tag is set to the literal string object,
+							<code>"My First Button"</code>
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn1" <span class="code-keyword">Text</span>="My First Button" />
+</pre>
+							An expression value starts with a quotation mark followed by a single opening brace, and ends with a closing brace followed by a
+							matching quotation mark, and can represent any type of object. In the example below, the <code>Text</code> attribute of the
+							<code>&lt;Button></code> tag is set to an expression value: the actual value will be computed when the page is being parsed.
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn2" <span class="code-keyword">Text</span>="{$btn1.Text}" />
+</pre>
+							The object that computes/evaluates an expression value is called a value provider. A value provider must implement the interface
+							<code>Quic.IValueProvider</code> [<em class="file-path">Quic\ValueProviders\IValueProvider.cs</em>], and this involves implementing
+							the overloaded <code>Evaluate</code> methods which convert the input argument of the value provider to an appropriate output.
 						</p>
 						<p>
-							We know that when Quic finds a tag in your document, it tries to find and instantiate an object of a class whose name matches the 
-							tag name. How does Quic know where to search when trying to match a tag to a class? It does this by examining the XML namespace 
-							(xmlns) attributes attached to the root <code>&lt;html></code> tag. These attributes hold the locations of assemblies and 
-							namespaces from which Quic elements can be instantiated.
+							Within the matching braces of an expression value there are two ways to invoke a value provider:
+							<ol>
+								<li><a href="#val_prvdr_class">By class name</a></li>
+								<li><a href="#val_prvdr_key">By using a key in the document's resource dictionary</a></li>
+							</ol>
+							To demonstrate the various ways of calling a value provider, I will use the value provider <code>StringProvider</code> 
+							[<em class="file-path">Quic.Core\ValueProviders\StringProvider.cs</em>]. This is basically an alias for <code>Quic.StringVP</code> 
+							[<em class="file-path">Quic\ValueProviders\StringVP.cs</em>] which (for now) does nothing other than return the input argument
+							passed into it as output, as shown in its <code>Evaluate</code> methods:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">override</span> <span class="code-keyword">object</span> Evaluate(<span class="code-keyword">object</span> input)
+{
+  <span class="code-keyword">return</span> Evaluate(input.ToString());
+}
+
+<span class="code-keyword">public</span> <span class="code-keyword">override</span> <span class="code-keyword">object</span> Evaluate(<span class="code-keyword">string</span> input)
+{
+  <span class="code-keyword">return</span> input;
+}
+</pre>
+						</p>
+						
+						<h4><a name="val_prvdr_class" id="val_prvdr_class">Invoking Value Providers By Class Name</a></h4>
+						<p>
+							After the opening brace of the expression value, type the name of the class from which the value provider object would be
+							instantiated. If the value provider expects an argument/input (most value providers do), then type the argument after the class
+							name, separating them with a space. For instance, on line 114, we have:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn4" <span class="code-keyword">Text</span>="{StringProvider My Fourth Button}" />
+</pre>
+							In the code snippet above, the value provider that will provide the value for the <code>Text</code> attribute of the 
+							<code>&lt;Button></code> tag is a <code>StringProvider</code>, and its agument is <code>My Fourth Button</code>.<br />
+							To instantiate this value provider, Quic must first find a matching 
+							<a href="http://www.codeproject.com/Articles/1077305/Introducing-the-Quic-Web-Development-Framework-Par#namespace">namespace 
+							attribute</a>, and it finds it on line 5: <code>xmlns:StringProvider="Quic.Core.dll:StringProvider"</code>.<br />
+							This means in the assembly <em class="file-path">Quic.Core.dll</em> there is a class named <code>StringProvider</code> from
+							which Quic will instance an actual object (which must be a value provider, or an exception is thrown), and invoke the 
+							<code>Evaluate</code> method of the object, with <code>"My Fourth Button"</code> as the method's argument.
 						</p>
 						<p>
-							If the value of a namespace attribute contains a colon (:), the part to the left of the colon identifies the file path
-							(could be relative or absolute) of the assembly (typically a .DLL file) to search, and the part to the right of the colon 
-							identifies the namespace to search. If the value of a namespace attribute contains no colon (:), then that value refers simply to 
-							the file path of the assembly to search. This is typically used when you want to find classes that have no enclosing namespace 
-							(like most classes in my <em class="file-path">Quic.Bootstrap.dll</em> assembly).
+							On line 117 we have something similar:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn5" <span class="code-keyword">Text</span>="{String My Fifth Button}" />
+</pre>
+							In the code snippet above, the value provider that will provide the value for the <code>Text</code> attribute of the 
+							<code>&lt;Button></code> tag is a <code>String</code>, and its agument is <code>My Fifth Button</code>.<br />
+							Quic must first find a matching 
+							<a href="http://www.codeproject.com/Articles/1077305/Introducing-the-Quic-Web-Development-Framework-Par#namespace">namespace 
+							attribute</a>, and it finds it on line 8: <code>xmlns:String="Quic.Core.dll:String"</code>.<br />
+							To instantiate this value provider, Quic searches for the appropriate class as earlier described. The problem is,
+							there is no class named <code>String</code> in <em class="file-path">Quic.Core.dll</em>.<br />
+							When Quic doesn't find a class with a matching name in the specified assembly, it suffixes the string <code>"Provider"</code> to
+							the class name and performs the search again. Only if this second search fails does it throw an exception.<br />
+							In this case, it suffixes <code>"Provider"</code> to <code>"String"</code> to form <code>"StringProvider"</code>, and, this time,
+							it finds the desired class.
+						</p>
+						
+						<h4><a name="val_prvdr_key" id="val_prvdr_key">Invoking Value Providers By Using a Key in the Document's Resource Dictionary</a></h4>
+						<p>
+							Because most value providers that convert string to basic types like Boolean, Color, DateTime are expected to be resources 
+							(extending <code>Quic.ValueProviderResource</code> [<em class="file-path">Quic\ValueProviders\ValueProvider.cs</em>] which in turn extends
+							<code>Quic.ResourceElement</code>), they have a <code>Key</code> attribute and can be specified in the <code>&lt;head></code> tag, 
+							as seen on line 18.
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">StringProvider</span> <span class="code-keyword">Key</span>="sp" />
+</pre>
+							To invoke a value provider by its key, after the opening brace of the expression value, type the <em>at</em> character <code>@</code> 
+							followed immediately by key. If the value provider expects an argument/input (most value providers do), then type the argument 
+							after the key, separating them with a space. For instance, on line 120, we have:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="{@sp btn6}" <span class="code-keyword">Text</span>="{@sp {String My Sixth Button}}" />
+</pre>
+							In the code snippet above, the value provider that will provide the value for the <code>Name</code> attribute of the 
+							<code>&lt;Button></code> tag is one with the key <code>sp</code> which, from line 18, is a <code>StringProvider</code>, and its 
+							agument is <code>btn6</code>.<br />
+							The advantage of this method (over using the class name) is that the value provider is created only once and reused wherever its key is specified.
+						</p>
+						
+						<h4><a name="val_prvdr_nstd" id="val_prvdr_nstd">Nested Value Providers</a></h4>
+						<p>
+							The argument of a value provider can be another value provider. This is allowed since every value provider is expected to accept an
+							argument and return a result. The inner value provider executes first, and its result becomes the argument for the outer value provider.<br />
+							An example is seen on line 120:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="{@sp btn6}" <span class="code-keyword">Text</span>="{@sp {String My Sixth Button}}" />
+</pre>
+							The <code>Text</code> attribute of the <code>&lt;Button></code> tag will get its value from a value provider that has been stored in
+							the document's resource dictionary with the key <code>sp</code>, which in turn will get its argument from an instance of
+							<code>StringProvider</code> (which will be created at that point) with argument <code>My Sixth Button</code>.<br />
+							The level of nesting can go on indefinitely. When working with nested value providers, be sure to make every opening brace have a
+							corresponding closing brace.
+						</p>
+						
+						<h4><a name="val_prvdr_pp" id="val_prvdr_pp">Property Provider</a></h4>
+						<p>
+							There is a useful value provider that comes with Quic, in the <em class="file-path">Quic.Core.dll</em> assembly, called
+							<code>PropertyProvider</code> [<em class="file-path">Quic.Core\ValueProviders\PropertyProvider.cs</em>]. This value
+							provider helps to reference the property/attribute values of elements.<br />
+							Suppose I wanted to create three buttons, all having the same text, without having to repeat that text verbatim, I could
+							simply set the text in the first button, and then reference it in the second and third buttons using <code>PropertyProvider</code>
+							value provider, as shown below:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn1" <span class="code-keyword">Text</span>="My First Button" />
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn2" <span class="code-keyword">Text</span>="{core:PropertyProvider btn1.Text}" />
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Text</span>="{core:PropertyProvider btn1.Text}" />
+</pre>
+							Now all three buttons will have the same <code>Text</code> attribute. Additionally, if I need to change their <code>Text</code>
+							attributes, I need only do it on <code>btn1</code>.
+						</p>
+						
+						<h4><a name="val_prvdr_defpp" id="val_prvdr_defpp">Default Property Provider {$}</a></h4>
+						<p>
+							Because of how useful the <code>PropertyProvider</code> is, every Quic document comes with a default <code>PropertyProvider</code>.
+							What's more, there is a very convenient way of accessing it: type the dollar sign <code>$</code> after the opening brace,
+							followed by the argument to the <code>PropertyProvider</code>. There's usually no need to leave any space between the
+							<code>$</code> and the argument. The above example can thus be rewritten as (as seen on lines 105 and 108):
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn1" <span class="code-keyword">Text</span>="My First Button" />
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn2" <span class="code-keyword">Text</span>="{$btn1.Text}" />
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Text</span>="{$btn1.Text}" />
+</pre>
+							<code>PropertyProvider</code> expects the following formats of argument:
+							<ul>
+								<li>
+									<code>{element-name}.{attribute}</code>: This returns the value of the attribute <code>{attribute}</code> of the
+									element with name <code>{element-name}</code>.<br />
+									See line 106:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn2" <span class="code-keyword">Text</span>="{$btn1.Text}" />
+</pre>
+								</li>
+								<li>
+									<code>{attribute}</code>: This returns the value of the attribute <code>{attribute}</code> of the
+									current element.<br />
+									See lines 82 and 83:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Table</span> <span class="code-keyword">Text</span>="Awesome Table" <span class="code-keyword">Bordered</span>="true"
+	<span class="code-keyword">Condensed</span>="{$Bordered}"
+</pre>
+								</li>
+								<li>
+									<code>this.{attribute}</code>: This returns the value of the attribute <code>{attribute}</code> of the
+									current element (same as above).<br />
+									See lines 82 and 84:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Table</span> <span class="code-keyword">Text</span>="Awesome Table" <span class="code-keyword">Bordered</span>="true"
+	<span class="code-keyword">Hover</span>="{$this.Bordered}"
+</pre>
+								</li>
+								<li>
+									<code>self.{attribute}</code>: This returns the value of the attribute <code>{attribute}</code> of the
+									current element  (same as above).<br />
+									See lines 82 and 85:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Table</span> <span class="code-keyword">Text</span>="Awesome Table" <span class="code-keyword">Bordered</span>="true"
+	<span class="code-keyword">Striped</span>="{$self.Bordered}"
+</pre>
+								</li>
+								<li>
+									<code>parent.{attribute}</code>: This returns the value of the attribute <code>{attribute}</code> of the
+									parent element of the current element.<br />
+									See line 124:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">TD</span> <span class="code-keyword">Context</span>="{?$parent.Context}">
+</pre>
+									NOTE: The question mark, <code>?</code>, after the opening brace represents <a href="#val_prvdr_lazy">lazy evaluation</a>.
+								</li>
+							</ul>
+						</p>
+						
+						<h4><a name="val_prvdr_lazy" id="val_prvdr_lazy">Lazy Evaluation {?}</a></h4>
+						<p>
+							As expected, a Quic document is processed top-to-bottom. Whenever Quic comes across a referenced attribute, it expects that
+							attribute (and the tag that it belongs to) to have been defined before that point. This is why we defined <code>btn1</code>
+							before accessing <code>btn1.Text</code>, or why we typed <code>Bordered="true"</code> before typing 
+							<code>Condensed={$Bordered}</code>. If an attribute is referenced before it is defined an exception may be thrown.
+							(In the case of <code>Condensed={$Bordered}</code>, an exception will not be thrown but the default value of <code>Bordered</code>,
+							which is false, will be used.) To avoid such outcomes we use the lazy evaluation syntax.<br />
+							Lazy evaluation uses the same syntax as regular expression values, except that a question mark, <code>?</code>, must immediately
+							follow the opening brace, as seen on line 137:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Text</span>="{?$btn8.Text}" <span class="code-keyword">ButtonType</span>="success" <span class="code-keyword">ng-model</span>="angularJsModel" />
+</pre>
+							The <code>Text</code> attribute of the above <code>&lt;Button></code> references the <code>Text</code> attribute of an element
+							named <code>btn8</code> (which is not created until line 140). However, because of the <code>?</code> following the opening
+							brace, this attribute will be evaluated lazily. This means the attribute will <b>NOT</b> be evaluated when the input XML file is 
+							being parsed to create the Quic document object, but will be evaluated when the Quic document object is being rendered to the 
+							output HTML file and, by then, the element named <code>btn8</code> must have been created.<br />
+							Lazy evaluation <b>MUST</b> be used when accessing parent attributes, as seen on line 124:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">TD</span> <span class="code-keyword">Context</span>="{?$parent.Context}">
+</pre>
+							This is because a parent element is fully created only after it's child elements have all been created.<br />
+							Lazy evaluation can be used with any value provider, not just <code>PropertyProvider</code>. So you could have:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Name</span>="btn4" <span class="code-keyword">Text</span>="{?StringProvider My Fourth Button}" />
+</pre>
+							NOTE: Lazy evaluations may incur a slight performance overhead.
+						</p>
+						
+						<h4><a name="val_prvdr_esc" id="val_prvdr_esc">Escaping the "{" Character</a></h4>
+						<p>
+							If the value of an attribute is expected to be a literal value which starts with the <code>{</code> character, in order for it
+							not to be taken as an expression value by Quic, you have to <i>escape</i> the <code>{</code> character by typing
+							<code>{{</code>.
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Text</span>="{{$this.Text}" />
+</pre>
+							The <code>Text</code> attribute above will be assigned the string <code>"{$this.Text}"</code>.<br />
+							Note that if the attribute value starts with a <code>{</code> but <b>does not</b> end with a <code>}</code>, it is also taken
+							as a literal value. In this case, you <b>should not</b> escape the <code>{</code> character because Quic will take the value
+							as a literal value. In other words, for Quic to take a value as an expression value, it <b>MUST</b> begin with a single
+							<code>{</code> character and end with a matching <code>}</code>.
+						</p>
+						
+						<h4><a name="val_prvdr_tags" id="val_prvdr_tags">Value Providers in Tags</a></h4>
+						<p>
+							The content of a tag can also be provided by a value provider, as seen on lines 25 and 26:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">{@sp Second SubMenu Item}&lt;/<span class="code-type code-keyword">MI</span>>
+&lt;<span class="code-type code-keyword">MI</span> <span class="code-keyword">Link</span>="">{StringProvider Third SubMenu Item}&lt;/<span class="code-type code-keyword">MI</span>>
+</pre>
+							Similar rules apply here as do when using value providers with attributes.
+						</p>
+						
+						<h4><a name="val_prvdr_imp" id="val_prvdr_imp">Implicit Value Providers</a></h4>
+						<p>
+							You can register a value provider as an implicit value provider. Implicit value providers don't have to be explicitly specified;
+							Quic will invoke the appropriate implicit value provider based on the element/tag being acted on, and the attribute that is being
+							assigned.<br />
+							To explain the importance of registering implicit value providers, I'll use the class <code>ColorProvider</code>
+							[<em class="file-path">Quic.Core\ValueProviders\ColorProvider.cs</em>]. As you may have guessed, this value provider helps convert a
+							string literal to a <code>System.Drawing.Color</code> object. To use it explicitly, I could type:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;winform:<span class="code-type code-keyword">Button</span> <span class="code-keyword">BackColor</span>="{ColorProvider red}" />
+</pre>
+							If, however, I register <code>ColorProvider</code> as an implicit value provider in the matching class for
+							<code>&lt;winform:Button></code>, then I could rewrite the above line simply as:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;winform:<span class="code-type code-keyword">Button</span> <span class="code-keyword">BackColor</span>="red" />
+</pre>
+							This is the advantage of implicit value providers: you do not have to specify the value provider to use explicitly.
 						</p>
 						<p>
-							Your Quic document contains tags without prefixes and tags with prefixes. When a tag without prefix is encountered, there are two
-							possibilities:
+							To register implicit value providers for a Quic element, override the <code>GetImplicitValueProvider</code> method.<br />
+							Every Quic element comes with a number of implicit value providers because they are registered in the
+							<code>GetImplicitValueProvider</code> method of the most fundamental class, <code>Quic.Element</code>.<br />
+							<img width="600" height="309" src="./Quic2_files/Element.GetImplicitValueProvider.png" /><br />
+							This is why every Quic element knows how to convert string literals provided as attribute values to the appropriate objects of
+							basic data-types. For instance, the <code>Quic.PointVP</code> [<em class="file-path">Quic\ValueProviders\PointVP.cs</em>]
+							value provider converts a string input into a <code>System.Drawing.Point</code> object.<br />
+							<img width="600" height="309" src="./Quic2_files/Quic.PointVP.png" /><br />
+							Check out the interesting source code for <code>Quic.ColorVP</code> [<em class="file-path">Quic\ValueProviders\ColorVP.cs</em>].
+						</p>
+						<p>
+							The implicit value providers registered for <code>Quic.Element</code> are not often sufficient. This is why you have the
+							liberty to override the <code>GetImplicitValueProvider</code> method. This is exactly what we do in a number of
+							<em class="file-path">Quic.Bootstrap.dll</em> elements. For instance, the very core class <code>BootstrapElement</code>
+							[<em class="file-path">Quic.Bootstrap\Elements\BootstrapElement.cs</em>] provides its own implementation of the
+							<code>GetImplicitValueProvider</code> method:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">override</span> <span class="code-type code-keyword">IValueProvider</span> GetImplicitValueProvider(<span class="code-keyword">string</span> propertyName, <span class="code-type code-keyword">Type</span> propertyType)
+{
+  <span class="code-keyword">if</span> (propertyName == <span class="code-string">"Align"</span>)
+  {
+    <span class="code-keyword">return</span> <span class="code-keyword">AlignmentProvider</span>.Singleton();
+  }
+  <span class="code-keyword">else if</span> (propertyName == <span class="code-string">"State"</span>)
+  {
+    <span class="code-keyword">return</span> <span class="code-keyword">StateProvider</span>.Singleton();
+  }
+  <span class="code-keyword">else if</span> (propertyName == <span class="code-string">"Validation"</span>)
+  {
+    <span class="code-keyword">return</span> <span class="code-keyword">ValidationStateProvider</span>.Singleton();
+  }
+
+  <span class="code-keyword">return base</span>.GetImplicitValueProvider(propertyName, propertyType);
+}
+</pre>
+							Check out the source codes for the implicit value providers registered in various <em class="file-path">Quic.Bootstrap.dll</em> elements
+							in <em class="file-path">Quic.Bootstrap\ValueProviders\</em>.
+						</p>
+						
+						<h4><a name="val_prvdr_lim" id="val_prvdr_lim">Value Providers Limitations</a></h4>
+						<p>
+							The current implementation of value providers has some serious limitations.
 							<ol>
 							<li>
-								The value of the default namespace attribute, <code>xmlns</code>, holds the assembly and the <em>namespace</em> of the class
-								to instantiate, and the name of the class is the same as the name of the tag.<br />
-								In our sample document, on line 13 you find the tag <code>&lt;UseBootstrap /></code> with no prefix. If you go up to line 3
-								you find the default namespace attribute <code>xmlns="Quic.Bootstrap.dll"</code>. This means that the tag
-								<code>&lt;UseBootstrap /></code> points to a class named <code>UseBootstrap</code> (with no containing namespace in this case)
-								found in the assembly <em class="file-path">Quic.Bootstrap.dll</em> which, in this case, must be located in the same directory as 
-								our sample document, as shown below:<br />
-								<img width="600" height="240" src="./Quic2_files/test_dir.png" /><br />
-								The same rule applies to other tags in the document like <code>&lt;Form></code>, <code>&lt;Grid></code>,
-								<code>&lt;Row></code>, <code>&lt;Column></code>.
+								A value provider accepts only one argument. Everything after the value provider is a single argument, including spaces. I
+								would love to change that one way or another. The current implementation has the format:
+								<code>Attribute="{ValueProvider arg}"</code>. I would love to implement the format: 
+								<code>Attribute="{ValueProvider arg1, arg2, arg3, ...}"</code>
 							</li>
 							<li>
-								There is a namespace attribute that matches this tag, and the value of that attribute holds the assembly and the
-								<em><b>fully qualified name</b></em> (not just namespace, but namespace and class name) of the class to instantiate.<br />
-								In our sample document above, on lines 22 and 23 you find the tags <code>&lt;radix></code> and <code>&lt;rad></code> with
-								no prefix. If you go up to lines 6 and 7 you find the matching namespace attributes <code>xmlns:radix</code> and
-								<code>xmlns:rad</code>. On further inspection you notice that both attributes have the same value
-								<code>Quic.Ed.dll:Quic.Ed.Math.Radix</code>. This means that the tags <code>&lt;radix></code> and <code>&lt;rad></code> both
-								point to the same class <code>Quic.Ed.Math.Radix</code> found in the assembly <em class="file-path">Quic.Ed.dll</em>
-								which, in this case, must be located in the same directory as our sample document, as shown in the directory image above.
+								A value provider must be the only content of a tag or attribute value. I would love to change that so that multiple value providers
+								(not nested, but siblings) can occur in a tag or attribute value, or so that a value provider can be interpolated within the content
+								of a tag or attribute value. The current implementation has the format:
+								<code>&lt;Tag>{ValueProvider arg}&lt;/Tag></code>. I would love to implement the format: 
+								<code>&lt;Tag>...{ValueProvider1 arg}...{ValueProvider2 arg}...{ValueProvider3 arg}...&lt;/Tag></code>
 							</li>
 							</ol>
 						</p>
-						<p>
-							When a tag with prefix is encountered, Quic finds a namespace attribute that matches the <em>prefix</em> of the tag, and the
-							value of that attribute holds the assembly and the <em>namespace</em> of the class to instantiate, and the name of the class is 
-							the same as the name of the tag.<br />
-							In our sample document, on line 21 you find the tag <code>&lt;math:Radix></code> with prefix <em>math</em>. If you go up to line 5
-							you find the matching namespace attribute <code>xmlns:math="Quic.Ed.dll:Quic.Ed.Math"</code>. This means that the tag
-							<code>&lt;math:Radix></code> points to a class named <code>Radix</code> in the namespace <code>Quic.Ed.Math</code>. Therefore,
-							the full name of this class is <code>Quic.Ed.Math.Radix</code>, and it is found in the assembly 
-							<em class="file-path">Quic.Ed.dll</em> located in the same directory as our sample document.<br />
-							It, therefore, follows that the tags <code>&lt;math:Radix></code>, <code>&lt;radix></code> and <code>&lt;rad></code> all point
-							to the same class. This becomes evident when you view the output file generated by Quic from this document.<br />
-							<img width="600" height="125" src="./Quic2_files/ed.html.png" />
-						</p>
-						<p>
-							Library owners should endeavour to make known the appropriate namespaces and classes available in their libraries. This could be
-							via an XML document, like is done by Visual Studio. More on this in the next article(s).
-						</p>
 						
-						<h4><a name="proc_opt" id="proc_opt">Processing option attributes</a></h4>
+						<h2><a name="manifest" id="manifest">A Proposal for a Manifest File</a></h2>
 						<p>
-							There are certain Quic-specific attributes that are expected in the <code>&lt;head></code> tag that determine how the page will be
-							processed. Looking at the <em>ed.xml</em> document shown above, we see one of such attributes on line 9, 
-							<code>IgnoreAttrbuteCase</code>. The list of processing option attrbutes (and their descriptions) is given below:
-							<ul>
-								<li>
-								<b>AllowUnknownAttributes</b>: This is true by default. If true, this tells Quic not to throw an exception anytime it 
-								encounters an attribute it does not understand. Such an attribute (and its value) will be left untouched by Quic.<br />
-								I should mention here that, just as tags map to classes in the appropriate assemblies, attributes map to public, read-write 
-								properties of those classes.
-								</li>
-								<li>
-								<b>AllowUnknownTags</b>: This is true by default. If true, this tells Quic not to throw an exception anytime it 
-								encounters a tag it does not understand. Such a tag will be left untouched by Quic.<br />
-								There is a good reason why <code>AllowUnknownAttributes</code> and <code>AllowUnknownTags</code> attributes are true by default.
-								This is to allow Quic parse regular (X)HTML documents that will surely contain tags and attributes that have no matchning classes
-								and properties in any of the assemblies included in the document (via the namespace attributes). You can explicitly set them
-								to false if you want your document to consist strictly of Quic-recognisable tags and attributes.
-								</li>
-								<li>
-								<b>IgnoreAttrbuteCase</b>: This is false by default. If true, this tells Quic not to be case-sensitive when trying to match
-								a tag attribute to a class property.
-								</li>
-								<li>
-								<b>IgnoreTagCase</b>: This is false by default. If true, this tells Quic not to be case-sensitive when trying to match
-								a tag to a class.<br />
-								There is a good reason why <code>IgnoreAttrbuteCase</code> and <code>IgnoreTagCase</code> attributes are false by default.
-								This is to make Quic case-sensitive. The rationale here is that your typical HTML tags and attributes should be written in
-								lowercase while your Quic tags and attributes should be written in <em>pascal notation</em>, which is the same notation you
-								would use for your class and public property names in C#. So, this would mean that <code>&lt;button></code> should be a HTML
-								tag while <code>&lt;Button></code> should be a Quic tag.<br />
-								Note that irrespective of the values of the <code>IgnoreAttrbuteCase</code> and <code>IgnoreTagCase</code> attributes, the
-								<code>&lt;html></code>, <code>&lt;head></code> and <code>&lt;body></code> tags are always in lowercase, and the Quic-specific
-								attributes found in the <code>&lt;html></code> tag are always written in pascal notation.
-								</li>
-							</ul>
+							Let me end this article with a proposal. I propose that custom element creators always provide a manifest file describing the
+							elements (as well as value providers, file initializers) contained in their DLL files. This will not only be helpful to developers,
+							but would also be helpful to development tools.<br />
+							I have provided such manifest files in the <em class="file-path">samples</em> folder.
 						</p>
-						
-						<h4><a name="out_file" id="out_file">Output file attributes</a></h4>
-						<p>
-							Another Quic-specific attribute that is expected in the <code>&lt;html></code> tag is the <code>OutputFile</code> attribute, as
-							seen on line 10 in the <em>ed.xml</em> document shown above. As you may have already guessed, this attribute describes the final
-							output file that will be generated by Quic after all the relevant processing/preprocessing has been done.
-						</p>
-						<p>
-							If the value of the attribute starts with a single opening brace and ends with a single closing brace (as seen in <em>ed.xml</em>),
-							then the first part (<code>core:HtmlFile</code> in this case) points to a class that will initialize the output file, and the
-							second part (<code>ed.html</code> in this case) is the name with which the output file will be saved in the output directory. Values
-							of attributes defined this way are typically subject to the same rules of namespacing discussed in 
-							<a href="#namespace">Namespace attributes</a> above. In this case, a class named <code>HtmlFile</code> will be loaded from
-							the assembly <code>Quic.Core.dll</code> (as defined on line 4, <code>xmlns:core="Quic.Core.dll"</code>). This class is expected to
-							derive from the class <code>Quic.FileInitializer</code> [<em class="file-path">Quic\FileInitializers\FileInitializer.cs</em>],
-							found in <em>Quic.dll</em>.
-						</p>
-						<p>
-							If you check the source codes for the project <em>Quic.Core</em> you will not find any class called <em>HtmlFile</em>. So what does Quic do?
-							Anytime Quic doesn't find a file initializer it appends the strings <code>"Initializer"</code> or <code>"Initialiser"</code>, and
-							performs the search again. So, in this case, Quic will then search for <em>HtmlFileInitializer</em>
-							[<em class="file-path">Quic.Core\FileInitializers\HtmlFileInitializer.cs</em>], and will find it.<br />
-							From the source code you can see that the class <code>HtmlFileInitializer</code> in project <em>Quic.Core</em> extends the class
-							<code>Quic.HtmlFileInit</code> [<em class="file-path">Quic\FileInitializers\HtmlFileInit.cs</em>] in project <em>Quic</em>. 
-							<code>Quic.HtmlFileInit</code> in turn extends <code>Quic.FileInitializer</code>.
-							<br />
-							The implemented method <code>InitializeFile</code> of <code>Quic.HtmlFileInit</code> initializes an output file as it deems fit:
-<pre lang="cs" id="pre0" style="margin-top: 0px;">
-<span class="code-keyword">public</span> <span class="code-keyword">override</span> <span class="code-type code-keyword">OutputFile</span> InitializeFile(<span class="code-type code-keyword">QuicDocument</span> doc, <span class="code-keyword">string</span> filename)
-{
-  <span class="code-type code-keyword">HtmlOutputFile</span> htmlOutputFile = <span class="code-keyword">new</span> <span class="code-type code-keyword">HtmlOutputFile</span>(filename);
-  htmlOutputFile.CurrentSection = htmlOutputFile.HeadSection;
-  
-  <span class="code-comment">//put it in the output dir</span>
-  <span class="code-keyword">if</span> (doc.OutputDirectory != <span class="code-keyword">null</span>)
-    doc.OutputDirectory.Add(htmlOutputFile, <span class="code-keyword">true</span>);
-    
-  <span class="code-keyword">return</span> htmlOutputFile;
-}
-</pre>
-							Your output file class (<code>Quic.HtmlOutputFile</code> [found in <em class="file-path">Quic\Core\Output\OutputFile.cs</em>] in the code 
-							above) must derive from the class <code>Quic.TextFile</code> [found in <em class="file-path">Quic\Core\Output\OutputFile.cs</em>]
-							found in <em>Quic.dll</em>.<br />
-							See the output file generated in the output directory:<br />
-							<img width="600" height="145" src="./Quic2_files/ed_out_file.png" /><br />
-							Following the ideas presented here you can easily create and use your own file initilizers.
-						</p>
-						<p>
-							If the value of the <code>OutputFile</code> attribute does <b>NOT</b> start with a single opening brace or does <b>NOT</b> end 
-							with a single closing brace, your output file will be a plain text file and the entire value of the <code>OutputFile</code> attribute 
-							is taken as the name of the file.
-						</p>
-
-						<h2>Points of interest</h2>
-						<p>
-							In this article I have introduced the Quic framework and discussed the tool available to utilize it. I have also started discussing
-							the basic structure of a document that is supposed to be preprocessed by Quic. Although some source code snippets were displayed
-							here, they will be discussed in more details in coming articles; the main purpose of this article is to get you aware of
-							and interested in Quic, interested enough to go further and use it make the UI part of your web development a little easier.<br />
-							In the next article(s) we will be talking about:
-							<ul>
-							<li>the <code>&lt;head></code> tag</li>
-							<li>the <code>&lt;body></code> tag</li>
-							<li>value providers</li>
-							<li>understanding the Quic source code</li>
-							<li>creating your own Quic elements</li>
-							</ul>
-						<p>
 
 						<h2>License</h2>
 						<div id="LicenseTerms">

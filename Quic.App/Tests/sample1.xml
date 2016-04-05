@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 
-<html xmlns="Quic.Bootstrap.dll"
-      xmlns:core="Quic.Core.dll"
-      xmlns:ColorProvider="Quic.Core.dll:ColorProvider"
-      xmlns:String="Quic.Core.dll:String"
-      xmlns:StringProvider="Quic.Core.dll:StringProvider"
+<html xmlns="..\..\Quic.Bootstrap\bin\Release\Quic.Bootstrap.dll"
+      xmlns:core="..\..\Quic.Core\bin\Release\Quic.Core.dll"
+      xmlns:ColorProvider="..\..\Quic.Core\bin\Release\Quic.Core.dll:ColorProvider"
+      xmlns:String="..\..\Quic.Core\bin\Release\Quic.Core.dll:String"
+      xmlns:StringProvider="..\..\Quic.Core\bin\Release\Quic.Core.dll:StringProvider"
       
       IgnoreAttributeCase="false"
       OutputFile="{core:HtmlFile sample.html}">
@@ -27,7 +27,7 @@
         var $var = new Array();
       ?>
       <Menu Text="Awesome Menu" Collapsible="true" Theme="dark" Position="fixedtop">
-        <!--
+        
         <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
         <MI Link="">{@sp Second SubMenu Item}</MI>
         <MI Link="">{StringProvider Third SubMenu Item}</MI>
@@ -44,12 +44,70 @@
             <MI Link="">{String Fourth SubMenu Item}</MI>
           
         </DropMenu>
-        -->
-        Signed in as <Link>Thomas</Link>
-        <Button>Navbar Button</Button>
+        
+        <!--Signed in as <Link>Thomas</Link>
+        <Button>Navbar Button</Button>-->
       </Menu>
       
       <br /><br /><br /><br />
+
+      <Breadcrumb>
+        <BI>2012</BI>
+        <BI>2013</BI>
+        <BI>2014</BI>
+        <BI State="active">2015</BI>
+        <BI>2016</BI>
+      </Breadcrumb>
+
+      <Pagination PaginationSize="lg">
+        <NI>&amp;laquo;</NI>
+        <NI>2012</NI>
+        <NI>2013</NI>
+        <NI>2014</NI>
+        <NI>2015</NI>
+        <NI State="active">2016</NI>
+        <NI>&amp;raquo;</NI>
+      </Pagination>
+
+      <Pagination>
+        <NI>&amp;laquo;</NI>
+        <NI>2012</NI>
+        <NI>2013</NI>
+        <NI>2014</NI>
+        <NI>2015</NI>
+        <NI State="active">2016</NI>
+        <NI>&amp;raquo;</NI>
+      </Pagination>
+
+      <Pagination PaginationSize="sm">
+        <NI>&amp;laquo;</NI>
+        <NI>2012</NI>
+        <NI>2013</NI>
+        <NI>2014</NI>
+        <NI>2015</NI>
+        <NI State="active">2016</NI>
+        <NI>&amp;raquo;</NI>
+      </Pagination>
+      <br />
+
+      <Pager>
+        <Previous>&amp;larr; 2015</Previous>
+        <Next>2016 &amp;rarr;</Next>
+      </Pager>
+      <br />
+
+      <Pager AlignLinks="true">
+        <Previous>&amp;larr; Old</Previous>
+        <Next>New &amp;rarr;</Next>
+      </Pager>
+      <br />
+
+      <p>
+        <Label>Default Label</Label> <Label LabelType="default">Default Label 2</Label>
+        <Label LabelType="primary">Primary Label</Label> <Label LabelType="success">Success Label</Label>
+        <Label LabelType="info">Info Label</Label> <Label LabelType="warning">Warning Label</Label>
+        <Label LabelType="danger">Danger Label</Label>
+      </p>
 
       <p>Tabs Example</p>
       <Nav>
@@ -224,14 +282,6 @@
         <NI>PHP</NI>
       </Nav>
       
-      <Breadcrumb>
-        <BI>2012</BI>
-        <BI>2013</BI>
-        <BI>2014</BI>
-        <BI State="active">2015</BI>
-        <BI>2016</BI>
-      </Breadcrumb>
-      
       <Table Text="Awesome Table" GlyphIcon="thumbs-up" Bordered="true" Condensed="{$Bordered}" Hover="{$Bordered}" Striped="{$Bordered}">
         <THead>
           <TR>
@@ -366,7 +416,9 @@
               </DropButton>
             </TD>
             <TD Context="Warning">
+              <TextBlock GlyphIcon="thumbs-up">109876</TextBlock>
               <Label GlyphIcon="thumbs-up">109876</Label>
+              <Label>109876</Label>
             </TD>
           </TR>
         </TBody>
@@ -441,7 +493,7 @@
       <Check Text="Prepend" Prepend="#" GlyphIcon="thumbs-up" />
       <Check Text="Append" Append="@" Checked="true" Disabled="true" />
       <Radio Text="Both" Prepend="#" Append="yeah" Group="grp1" GlyphIcon="thumbs-up" />
-      <Label Append="!" Prepend="Read Me:" Text="I am an awesome label"/>
+      <TextBlock Append="!" Prepend="Read Me:" Text="I am an awesome label"/>
       <TextBox Append="?" Prepend="Ask anything:" Hint="I am waiting"/>
       <TextArea Append="?" Prepend="Ask anything:" Hint="I am waiting"/>
       <InputGroup  InputSize="xs" Prepend="&lt;input type='radio'>" Append="&lt;input type='checkbox'>">

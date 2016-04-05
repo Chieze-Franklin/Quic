@@ -1,40 +1,4 @@
-﻿The <Resources> tag______________________________________________________________________________________
-	The "Key" attribute
-		valid ID name
-	??Custom attributes are allowed
-
-The <UI> tag______________________________________________________________________________________
-	UI elements
-	UI container elements
-	The "Name" attribute
-	??Custom attributes are also allowed
-	Accessing properties of other tags, "{$}"
-
-Value Providers______________________________________________________________________________________
-	Getting a value provider using key {@sp}
-	Getting a value provider using class name {StringProvider}
-		You can ignore the "Provider" suffix {String}
-	Nested value providers {StringProvider {String}}
-	Default Property Provider {$}
-	Lazy evaluation {?}
-	Escaping the "{" char: "{{...}" will be interpreted to "{...}"
-
-A Suggestion for an Element Manifest File______________
-	a manifest listing the elements (and their properties) in an assembly
-	<Element Name="Quic.Nothing" Type="UI|Resource" Extends="Quic.Element" IsContainer="true|false">
-		<Properties>
-			<Property Name="" Type="" AllowedValues=",,">
-				<Description></Description>
-			</Property>
-		</Properties>
-		<Description></Description>
-	</Element>
-
-	<ValueProvider></ValueProvider>
-
-	<FileInitializer></FileInitializer>
-===============================
-Repeat and RepeatCount___________________
+﻿Repeat and RepeatCount___________________
 	Printing out RepeatCount
 		doesnt work well with containers
 		should be used in a lazily-evaluated attribute
@@ -57,8 +21,14 @@ Model/Data Binding_________
 
 Creating Your Own Quic Elements_______________
 	System Architecture //explain how it works
+	[NotQuicProperty]
+	IsContainer //appplies to all elements (UI and resources)
+	GetImplicitValueProvider()
+	BeginRender and Render
 Messaging___________
 	Messenger.Prompt
 	Messenger.Notify
-
-[NotQuicProperty]
+Creating Your Own Value Providers
+	//the input to evaluate can be null...so try checking for this if necessary
+Creating Your Own File Initializers
+Creating Your Own Output Files

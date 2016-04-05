@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<Manifest>
+	<FileInitializer Name="HtmlFileInitializer" Extends="Quic.HtmlFileInit">
+		<Description>Initializes a HTML file</Description>
+	</FileInitializer>
+	
+	<ValueProvider Name="BooleanProvider" Extends="Quic.BoolVP">
+		<Description>A class that converts between System.String and a boolean</Description>
+	</ValueProvider>
+</Manifest>

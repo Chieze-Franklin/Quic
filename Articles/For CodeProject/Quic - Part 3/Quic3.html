@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>Introducing the Quic Web Development Framework - Part 3</title>
+	</head>
+	
+	<body>
+	
+		<pre>			
+			Title:       Introducing the Quic Web Development Framework - Part 3
+			Author:      Franklin Chieze
+			Email:       chieze.franklin@gmail.com
+			Language:    C# 5.0
+			Platform:    Windows
+			Technology:  .NET Framework
+			Level:       Intermediate
+			Description: Quic is a web development framework that enables you create rich web applications with less code than is usually needed.
+			Section      Web Development
+			SubSection   General
+			License:     CPOL
+		</pre>
+		
+		<link type="text/css" rel="stylesheet" href="./Quic3_files/Main.min.css">
+		
+		<div class="page-background">
+			<div id="A" class="container-content-wrap fixed article">
+				<form>
+					<div class="header">
+					    <a name="_articleTop" id="_articleTop"></a>
+					    <div class="title">
+					        <h1 id="ctl00_ArticleTitle" itemprop="name">
+							Introducing the Quic <img width="32" height="32" src="./Quic3_files/quic.png"> Web Development Framework - Part 3
+							</h1> 
+					    </div>
+                    </div>
+
+					<div id="contentdiv" class="text" itemprop="articleBody">
+						<ul class="download">
+							<li><a href="quic_v0_1_sources.zip">Download Quic v0.1 Source Codes - 606 KB</a></li>
+							<li><a href="https://github.com/Chieze-Franklin/Quic">GitHub repo</a></li>
+						</ul>
+
+						<h2>Introduction</h2>
+						<p>
+							Quic is a web development framework that enables you create rich web applications with less code than is usually needed.<br>
+							Quic is basically a preprocessor; it goes through your HTML file, looking for custom tags, and producing standard HTML, CSS,
+							JavaScript (and pretty much anything) from such tags.<br>
+							When a custom tag is encountered Quic loads the appropriate assembly and locates a class with the same name as the tag.
+							The class is then instantiated, and its <code>Render</code> method is called to emit the relevant codes and/or files.<br>
+							So we can say Quic allows you to delegate the dirty jobs to a class, and include that class in your HTML file as a custom tag.
+						</p>
+
+						<h2>Background</h2>
+						<p>
+							In the first part of this article 
+							(<a href="http://1990hackaholic.blogspot.com/2016/03/introducing-quic-web-development.html">
+							Introducing the Quic Web Development Framework - Part 1</a>) we were introduced to the Quic framework, its uses, the 
+							ideas behind it, and its advantages.<br>
+							We ended the article with a healthy discussion of the Quic-specific attributes expected in a <code>&lt;html&gt;</code> tag.
+						</p>
+						<p>
+							In the second part of this article 
+							(<a href="http://1990hackaholic.blogspot.com/2016/04/introducing-quic-web-development.html">
+							Introducing the Quic Web Development Framework - Part 2</a>) we looked at the Quic-compliant <code>&lt;head></code>
+							tag, resource elements, the Quic-compliant <code>&lt;body></code> tag, UI elements, and value providers.<br />
+							We ended the article with a suggestion that every Quic DLL file be accompanied with a manifest file describing the elements 
+							(as well as value providers, file initializers) contained within that DLL file.
+						</p>
+						<p>
+							In this article, we'll look at how to create your own Quic elements, and various miscellaneous topics.
+						</p>
+						<p>
+							To successfully follow the source codes in this framework, all you need is a healthy knowledge of C#. Two of the core namespaces
+							used are <code>System.Xml.Linq</code> (I previously used <code>System.Xml</code>, but found it difficult retrieving line
+							number and column number information) and 
+							<code><a href="http://msdn.microsoft.com/en-us/library/system.reflection(v=vs.110.aspx)">System.Reflection</a></code> to help
+							me load the relevant assemblies and classes.
+						</p>
+						
+						<h2><a name="out_comm" id="out_comm">Output Comments</a></h2>
+						<p>
+							Normally comments in the source file are ignored, and will not appear in the output file. To make a comment appear in the output
+							file, start it with <code>&lt;!--out:</code>. That is, add the text "out:" (with the colom) after the tokens that normally
+							introduce a comment. Now the comment will be rendered to the output, but without the "out:" characters.<br />
+							This comment in the source file:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+<span class="code-comment">&lt;!--out: render this comment--></span>
+</pre>
+							will be rendered as this in the output file:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+<span class="code-comment">&lt;!--render this comment--></span>
+</pre>
+						</p>
+
+						<h2><a name="loop" id="loop">Loop and LoopCount</a></h2>
+						<p>
+							Every Quic element comes with a <code>Loop</code> property which can be set in markup. This property tells the element how
+							many times it should render itself to the output file. The default value for <code>Loop</code> is one, which means the element
+							should render itself only once.
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Loop</span>="3">First set of buttons&lt;/<span class="code-type code-keyword">Button</span>>
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Loop</span>="3" <span class="code-keyword">Text</span>="Second set of buttons" />
+</pre>
+							This feature comes in handy when you need to repeat the same tag multiple times. For instance, you could use this to give a table
+							identical rows or to give a list identical list items.
+						</p>
+						<p>
+							To print out the number of times an element has rendered itself, query the <code>LoopCount</code> property.
+							Currently this property does not work well in containers (it always returns <code>1</code>). Also, you have to use it in a lazy
+							evaluation (or it would return <code>0</code>). These are limitations that would be addressed in a future release.
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Loop</span>="3">{?String {$LoopCount}}&lt;/<span class="code-type code-keyword">Button</span>>
+&lt;<span class="code-type code-keyword">Button</span> <span class="code-keyword">Loop</span>="3" <span class="code-keyword">Text</span>="{?String {$LoopCount}}" />
+</pre>
+						</p>
+						
+						<h2><a name="data_bind" id="data_bind">Model/Data Binding</a></h2>
+						<p>
+							Model or data binding is not supported natively in Quic yet. Since Quic allows you to work effortlessly with various other
+							frameworks like Angular and React, you can leverage the model/data binding they provide.
+						</p>
+						
+						<h2>Quic is XML-Compliant</h2>
+						<p>
+							Always remember that your Quic file should be an XML-compliant file, and is therefore subject to the same rules that govern XML.
+							For instance, never forget to use <code>&amp;amp;</code> to output <code>&amp;</code>.
+						</p>
+						
+						<h2>&lt;![CDATA[...]]></h2>
+						<p>
+							You can use <code>&lt;![CDATA[my escaped text]]></code> to escape text. Quic will print out the escaped text <i>verbatim</i>
+							in the output file. This can be useful when you wish to render <em>scripts</em> that have characters that break the XML validation
+							rules. Just insert the entire script within a <code>&lt;![CDATA[...]]></code> block.<br />
+							If <code>CDATA</code> is not sufficient (most probably because you need to include "<em>]]></em>" in the escaped text), 
+							use the special comment <code>&lt;!--cdata: ... --></code>.<br />
+							This comment in the source file:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+<span class="code-comment">&lt;!--cdata: &lt;script>if (a > b) alert("greater than");&lt;/script>--></span>
+</pre>
+							will be rendered as this in the output file:
+<pre lang="html" id="pre0" style="margin-top: 0px;">
+&lt;<span class="code-type code-keyword">script</span>><span class="code-keyword">if</span> (a > b) alert(<span class="code-string">"greater than"</span>);&lt;/<span class="code-type code-keyword">script</span>>
+</pre>
+						</p>
+						
+						<h2><a name="create" id="create">Creating Your Own Quic Elements</a></h2>
+						<h3>Workflow Overview</h3>
+						<p>
+							The workflow of the entire system has been partially explained in the first part of this series.<br />
+							The first significant thing that needs to be done is to create an instance of <code>Quic.QuicDocument</code> 
+							[<em class="file-path">Quic\Core\QuicDocument.cs</em>]. As the name implies, this object represents the document/file we have to
+							interact with. The class <code>Quic.QuicDocument</code> has no public constructors; you obtain an instance of the class by
+							calling the static method <code>Load</code>, and passing the file path to the XML source file as argument.
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-type code-keyword">QuicDocument</span> doc = <span class="code-type code-keyword">QuicDocument</span>.Load(<span class="code-string">@"c:\path\to\file.xml"</span>);
+</pre>
+							This method parses the source XML file (with the help of an instance of <code>System.Xml.Linq.XDocument</code>), and builds a
+							tree of Quic elements with the help of the <code>QuicDocument.BuildElement</code> method.<br />
+							The <code>QuicDocument.Load</code> method passes each relevant <code>System.Xml.Linq.XNode</code> 
+							object (most of which represent XML tags) to the <code>QuicDocument.BuildElement</code> method.<br />
+							The <code>QuicDocument.BuildElement</code> method then passes relevant information gotten from the <code>System.Xml.Linq.XNode</code>
+							object (like tag local name, tag namespace prefix) to the <code>QuicDocument.BuildObject</code> method.<br />
+							The <code>QuicDocument.BuildObject</code> method uses the data it receives to load the appropriate assembly 
+							(<code>System.Reflection.Assembly</code>) and create the appropriate object (using <code>System.Activator</code>). The created object
+							is then returned back to the <code>QuicDocument.BuildElement</code> method.<br />
+							The <code>QuicDocument.BuildElement</code> method converts the returned object (<code>System.Object</code>) into a Quic element
+							(<code>Quic.Element</code>), and returns it to the <code>QuicDocument.Load</code> method, which then stores the object for future
+							processing.
+						</p>
+						<p>
+							Having successfully created the instance of the <code>Quic.QuicDocument</code>, the next significant thing to do is to produce the
+							output file(s). Typically, more than one file is produced as output, so an output directory to contain all output files is
+							specified. The method that produces the output files is the <code>Quic.Render</code> method, and it accepts as argument the path
+							to the output directory.
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+doc.Render(<span class="code-string">@"c:\path\to\output\directory"</span>);
+</pre>
+							Essentially, what this method does is to call the <code>Element.BeginRender</code> (not the <code>Element.Render</code>) method
+							of each Quic element in the document. The <code>Element.Render</code> method should not be called directly, instead the
+							<code>Element.BeginRender</code> method should be called as it does some preparatory works before calling the 
+							<code>Element.Render</code> method. We will touch on this again shortly.
+						</p>
+						<p>
+							The <code>Quic.QuicDocument</code> class exposes three read-only properties that are important during any render session.
+							<ul>
+							<li><b>OutputDirectory</b>: Gets the output directory for the current render session.</li>
+							<li><b>OutputFile</b>: Gets the <em>main</em> output file for the current render session.</li>
+							<li><b>OutputOptions</b>: This is not yet used, but should hold options/settings that affect the current render session.</li>
+							</ul>
+							That's about it about the <code>Quic.QuicDocument</code> class, and the general workflow of the system.
+						</p>
+						
+						<h3>Quic.Element</h3>
+						<p>
+							To create a Quic element, you must inherit (directly or indirectly) from the abstract class <code>Quic.Element</code> 
+							[<em class="file-path">Quic\Core\Elements\Element.cs</em>].<br />
+							Public properties you define in your element class can be accessed from markup (usually as the attribute of a corresponding tag), and
+							public read-write properties can even be set from markup. To prevent a public property from being visible to markup, apply the
+							<code>[NotQuicProperty]</code> attribute (located at <em class="file-path">Quic\Attributes\NotQuicPropertyAttribute.cs</em>) to the
+							property.
+						</p>
+						<p>
+							<code>Quic.Element</code> defines a very important virtual method:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">virtual</span> <span class="code-type code-keyword">IValueProvider</span> GetImplicitValueProvider(<span class="code-keyword">string</span> propertyName, <span class="code-type code-keyword">Type</span> propertyType)
+</pre>
+							This method supplies value providers that help convert string attribute values gotten from markup to actual objects of
+							appropriate data types, which are then assigned to the appropriate properties of the Quic element.
+						</p>
+						<p>
+							The implicit value providers registered for <code>Quic.Element</code> are not often sufficient. This is why you have the
+							liberty to override the <code>GetImplicitValueProvider</code> method. This is exactly what we do in a number of
+							<em class="file-path">Quic.Bootstrap.dll</em> elements. For instance, the very core class <code>BootstrapElement</code>
+							[<em class="file-path">Quic.Bootstrap\Elements\BootstrapElement.cs</em>] provides its own implementation of the
+							<code>GetImplicitValueProvider</code> method:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">override</span> <span class="code-type code-keyword">IValueProvider</span> GetImplicitValueProvider(<span class="code-keyword">string</span> propertyName, <span class="code-type code-keyword">Type</span> propertyType)
+{
+  <span class="code-keyword">if</span> (propertyName == <span class="code-string">"Align"</span>)
+  {
+    <span class="code-keyword">return</span> <span class="code-keyword">AlignmentProvider</span>.Singleton();
+  }
+  <span class="code-keyword">else if</span> (propertyName == <span class="code-string">"State"</span>)
+  {
+    <span class="code-keyword">return</span> <span class="code-keyword">StateProvider</span>.Singleton();
+  }
+  <span class="code-keyword">else if</span> (propertyName == <span class="code-string">"Validation"</span>)
+  {
+    <span class="code-keyword">return</span> <span class="code-keyword">ValidationStateProvider</span>.Singleton();
+  }
+
+  <span class="code-keyword">return base</span>.GetImplicitValueProvider(propertyName, propertyType);
+}
+</pre>
+							Check out the source codes for the implicit value providers registered in various <em class="file-path">Quic.Bootstrap.dll</em> elements
+							in <em class="file-path">Quic.Bootstrap\ValueProviders\</em>.<br />
+							Value providers were covered in greater detail in the second part of this series.
+						</p>
+						
+						<p>
+							<code>Quic.Element</code> defines an abstract method:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">abstract</span> <span class="code-keyword">void</span> Render();
+</pre>
+							This is probably the most important method you need to implement in your base class, as this is the method called to emit
+							the output texts and/or files.
+						</p>
+						
+						<p>
+							<code>Quic.Element</code> exposes some very important properties:
+							<ul>
+							<li>
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">virtual</span> <span class="code-keyword">string</span> Name { <span class="code-keyword">get</span> {...} <span class="code-keyword">set</span> {...} }
+</pre>
+							This is the name of the element, and should be unique throughout the containing document.
+							</li>
+							
+							<li>
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+[<span class="code-type code-keyword">NotQuicProperty</span>]
+<span class="code-keyword">public</span> <span class="code-type code-keyword">QuicDocument</span> Document { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+</pre>
+							This exposes the <code>Quic.QuicDocument</code> instance that holds this element. The element can then query for
+							<code>Document.OutputDirectory</code>, <code>Document.OutputFile</code>, and <code>Document.OutputOptions</code>, which were
+							described earlier on.
+							</li>
+							
+							<li>
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+[<span class="code-type code-keyword">NotQuicProperty</span>]
+<span class="code-keyword">public</span> <span class="code-keyword">bool</span> IsContainer { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+</pre>
+							This determines whether the Quic element can have children or not.
+							</li>
+							
+							<li>
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+[<span class="code-type code-keyword">NotQuicProperty</span>]
+<span class="code-keyword">public</span> <span class="code-type code-keyword">ElementCollection</span> Elements { <span class="code-keyword">get</span> {...} }
+</pre>
+							Whenever a tag on the markup file is not empty and it's matching Quic element is a container, the content of such tag
+							is parsed into a collection of Quic elements, and those elements are stored in this property.
+							</li>
+							
+							<li>
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">string</span> Content { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+</pre>
+							Whenever a tag on the markup file is not empty but it's matching Quic element is <em>not</em> a container, the content of such tag
+							is stored in this property.
+							</li>
+							</ul>
+						</p>
+						<p>
+							If a Quic element has children, it is the resposibility of the parent element to call the <code>Render</code> methods of its
+							children, usually during its own <code>Render</code> operation. Nevertheless, you should not call the <code>Render</code>
+							method directly; instead, call the <code>BeginRender</code> method. <code>BeginRender</code> does some preparatory tasks (like
+							evaluating lazy properties) and then calls <code>Render</code> the appropriate number of times, as defined by the
+							<code>Loop</code> property.
+						</p>
+						<p>
+							Although you can inherit from <code>Quic.Element</code> directly, you should inherit from either <code>Quic.UIElement</code>
+							or <code>Quic.ResourceElement</code>.
+						</p>
+
+						<h4>Extending <code>Quic.UIElement</code></h4>
+						<p>
+							If an element is meant to contribute to the user interface of the document, let the element extend <code>Quic.UIElement</code>
+							[<em class="file-path">Quic\Core\Elements\UIElement.cs</em>]. This is a very small and simple class that adds a few properties
+							that are expected in a UI element.
+						</p>
+						
+						<h4>Extending <code>Quic.ResourceElement</code></h4>
+						<p>
+							If an element is <em>not</em> meant to contribute to the user interface of the document (perhaps it simply provides a service
+							used by other elements), let the element extend <code>Quic.ResourceElement</code>
+							[<em class="file-path">Quic\Core\Elements\ResourceElement.cs</em>]. This class provides one very important property:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">virtual</span> <span class="code-keyword">string</span> Key { <span class="code-keyword">get</span> {...} <span class="code-keyword">set</span> {...} }
+</pre>
+							The use of this property was covered in the second part of this series.
+						</p>
+						
+						<h2>Messaging</h2>
+						<p>
+							You can send messages from your Quic elements to the Quic environment (the CLI or the GUI Quic Bar). Currently there are 
+							two ways to send such messages:
+							<ul>
+							<li>As a prompt</li>
+							<li>As a notification</li>
+							</ul>
+							To send messages, you use the <code>Quic.Messaging.Messenger</code> class
+							[<em class="file-path">Quic\Messaging\Messenger.cs</em>].
+						</p>
+						
+						<h3>Messenger.Prompt</h3>
+						<p>
+							When a prompt is sent from your Quic element to the environment, the Quic Bar graphical user interface (GUI) handles it by raising a 
+							dialog/message box while the command line interface (CLI) writes the message of the prompt to the console window.<br />
+							To send prompts, you call the <code>Messenger.Prompt</code> method:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">void</span> Prompt(<span class="code-keyword">string</span> message, <span class="code-type">MessageType</span> messageType)
+</pre>
+							The first argument you pass is the message itself.<br />
+							The second argument represents the type of message you are sending. This may affect how the environment treats the message.<br />
+							<code>Quic.Messaging.MessageType</code> [<em class="file-path">Quic\Messaging\MessageType.cs</em>] 
+							is an enum defined as shown below:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">enum</span> <span class="code-type">MessageType</span>
+{
+  Error,
+  Info,
+  Question,
+  Success,
+  Warning
+}
+</pre>
+						</p>
+						
+						<h3>Messenger.Notify</h3>
+						<p>
+							When a notification is sent from your Quic element to the environment, the command line interface (CLI) writes the message of
+							the notification to the console window while the Quic Bar graphical user interface (GUI) handles it by 
+							changing the notification icon to the right of the bar and adding the message to the notification tray.<br />
+							<img width="600" height="100" src="./Quic3_files/quic_bar_notif.png" /><br />
+							To send notifications, you call the <code>Messenger.Notify</code> method:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">void</span> Notify(<span class="code-type">INotification</span> notification)
+</pre>
+							The argument you pass should implement the interface <code>Quic.Messaging.INotification</code> 
+							[<em class="file-path">Quic\Messaging\INotification.cs</em>] which is defined as shown below:
+<pre lang="cs" id="pre0" style="margin-top: 0px;">
+<span class="code-keyword">public</span> <span class="code-keyword">interface</span> <span class="code-type">INotification</span>
+{
+  <span class="code-keyword">string</span> Message { <span class="code-keyword">get</span>; }
+  <span class="code-type">MessageType</span> MessageType { <span class="code-keyword">get</span>; }
+  <span class="code-keyword">string</span> FilePath { <span class="code-keyword">get</span>; }
+  <span class="code-keyword">int</span> Line { <span class="code-keyword">get</span>; }
+  <span class="code-keyword">int</span> Column { <span class="code-keyword">get</span>; }
+  <span class="code-keyword">bool</span> HasLineInfo { <span class="code-keyword">get</span>; }
+}
+</pre>
+						</p>
+						<p>
+							You should never throw exceptions from your Quic elements to the environment; they will not be caught. Instead, you should create
+							an instance of <code>Quic.QuicException</code> [<em class="file-path">Quic\Exceptions\QuicException.cs</em>] and pass it as the
+							argument of a <code>Messenger.Notify</code> call. This is possible because <code>Quic.QuicException</code> implements the
+							<code>Quic.Messaging.INotification</code> interface.
+						</p>
+						
+						<h2>Trying to Keep it Short</h2>
+						<p>
+							There are a few more topics to touch but the article is getting too long. The major remaining topics are:
+							<ul>
+							<li>Creating Your Own Value Providers</li>
+							<li>Creating Your Own File Initializers</li>
+							<li>Creating Your Own Output Files</li>
+							</ul>
+							These concepts were touched in the second part of this series, and can be easily understood by looking at the project source code.
+						</p>
+						
+						<h2>License</h2>
+						<div id="LicenseTerms">
+						<p>
+							This article, along with any associated source code and files, is licensed under 
+							<a href="http://www.codeproject.com/info/cpol10.aspx" rel="license">The Code Project Open License (CPOL)</a>
+						</p>
+						</div><br>
+						
+					<div style="padding-top:8px">
+						<a class="anchorLink" href="#_articleTop">Article Top</a>
+					</div>
+				
+			</div></form>
+		</div> 
+	
+</div></body></html>

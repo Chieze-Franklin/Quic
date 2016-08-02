@@ -8,4 +8,94 @@
 	<ValueProvider Name="BooleanProvider" Extends="Quic.BoolVP">
 		<Description>A class that converts between System.String and a boolean</Description>
 	</ValueProvider>
+	<ValueProvider Name="ByteProvider" Extends="Quic.ByteVP">
+		<Description>A class that converts between System.String and a byte</Description>
+	</ValueProvider>
+	<ValueProvider Name="CharacterProvider" Extends="Quic.CharVP">
+		<Description>A class that converts between System.String and a character</Description>
+	</ValueProvider>
+	<ValueProvider Name="CharProvider" Extends="Quic.CharVP">
+		<Description>A class that converts between System.String and a character</Description>
+	</ValueProvider>
+	<ValueProvider Name="ColorProvider" Extends="Quic.ColorVP">
+		<Description>A class that converts between System.String and System.Drawing.Color</Description>
+	</ValueProvider>
+	<ValueProvider Name="DateProvider" Extends="Quic.DateTimeVP">
+		<Description>A class that converts between System.String and a date-time</Description>
+	</ValueProvider>
+	<ValueProvider Name="DateTimeProvider" Extends="Quic.DateTimeVP">
+		<Description>A class that converts between System.String and a date-time</Description>
+	</ValueProvider>
+	<ValueProvider Name="DecimalProvider" Extends="Quic.DecimalVP">
+		<Description>A class that converts between System.String and a decimal</Description>
+	</ValueProvider>
+	<ValueProvider Name="DoubleProvider" Extends="Quic.DoubleVP">
+		<Description>A class that converts between System.String and a double</Description>
+	</ValueProvider>
+	<ValueProvider Name="FloatProvider" Extends="Quic.FloatVP">
+		<Description>A class that converts between System.String and a float</Description>
+	</ValueProvider>
+	<ValueProvider Name="ImageProvider" Extends="Quic.ImageVP">
+		<Description>A class that converts between System.String and System.Drawing.Image</Description>
+	</ValueProvider>
+	<ValueProvider Name="IntegerProvider" Extends="Quic.IntVP">
+		<Description>A class that converts between System.String and an integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="IntProvider" Extends="Quic.IntVP">
+		<Description>A class that converts between System.String and an integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="LongIntegerProvider" Extends="Quic.LongVP">
+		<Description>A class that converts between System.String and a long integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="LongProvider" Extends="Quic.LongVP">
+		<Description>A class that converts between System.String and a long integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="PointFProvider" Extends="Quic.PointFVP">
+		<Description>A class that converts between System.String and a System.Drawing.PointF</Description>
+	</ValueProvider>
+	<ValueProvider Name="PointProvider" Extends="Quic.PointVP">
+		<Description>A class that converts between System.String and a System.Drawing.Point</Description>
+	</ValueProvider>
+	<ValueProvider Name="PropertyProvider" Extends="Quic.PropertyVP">
+		<Description>A class that provides the value of the property of a document object</Description>
+	</ValueProvider>
+	<ValueProvider Name="ShortIntegerProvider" Extends="Quic.ShortVP">
+		<Description>A class that converts between System.String and a short integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="ShortProvider" Extends="Quic.ShortVP">
+		<Description>A class that converts between System.String and a short integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="SignedByteProvider" Extends="Quic.SByteVP">
+		<Description>A class that converts between System.String and an sbyte</Description>
+	</ValueProvider>
+	<ValueProvider Name="SizeFProvider" Extends="Quic.SizeFVP">
+		<Description>A class that converts between System.String and a System.Drawing.SizeF</Description>
+	</ValueProvider>
+	<ValueProvider Name="SizeProvider" Extends="Quic.SizeVP">
+		<Description>A class that converts between System.String and a System.Drawing.Size</Description>
+	</ValueProvider>
+	<ValueProvider Name="StringProvider" Extends="Quic.StringVP">
+		<Description>A class that helps produce strings with characters that otherwise may not be producible in an XML attribute value</Description>
+	</ValueProvider>
+	<ValueProvider Name="UIntProvider" Extends="Quic.UIntVP">
+		<Description>A class that converts between System.String and an unsigned integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="UnsignedIntegerProvider" Extends="Quic.UIntVP">
+		<Description>A class that converts between System.String and an unsigned integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="UnsignedIntProvider" Extends="Quic.UIntVP">
+		<Description>A class that converts between System.String and an unsigned integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="ULongProvider" Extends="Quic.ULongVP">
+		<Description>A class that converts between System.String and an unsigned long integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="UnsignedLongProvider" Extends="Quic.ULongVP">
+		<Description>A class that converts between System.String and an unsigned long integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="UnsignedShortProvider" Extends="Quic.UShortVP">
+		<Description>A class that converts between System.String and an unsigned short integer</Description>
+	</ValueProvider>
+	<ValueProvider Name="UShortProvider" Extends="Quic.UShortVP">
+		<Description>A class that converts between System.String and an unsigned short integer</Description>
+	</ValueProvider>
 </Manifest>

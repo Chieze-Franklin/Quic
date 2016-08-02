@@ -18,7 +18,7 @@ namespace Quic
         Dictionary<string, string> customProperties = new Dictionary<string, string>();
         Dictionary<string, string> lazilyEvalProperties = new Dictionary<string, string>();
         string name;
-        int repeat = 1;
+        int loop = 1;
 
         public Element() 
         {
@@ -30,10 +30,10 @@ namespace Quic
         /// </summary>
         public void BeginRender()
         {
-            RepeatCount = 0;
-            for (int index = 0; index < Repeat; index++)
+            LoopCount = 0;
+            for (int index = 0; index < Loop; index++)
             {
-                RepeatCount += 1;
+                LoopCount += 1;
 
                 //evaluate lazily evaluated properties
                 foreach (KeyValuePair<string, string> keyValue in lazilyEvalProperties)
@@ -416,6 +416,20 @@ namespace Quic
         [NotQuicProperty]
         public bool IsContainer { get; set; }
         /// <summary>
+        /// Gets or sets the number of times this element will call its Render method.
+        /// Default is 1
+        /// </summary>
+        public int Loop
+        {
+            get { return loop; }
+            set { loop = value; }
+        }
+        /// <summary>
+        /// Gets or the number of times this element has called its Render method.
+        /// Default is 1
+        /// </summary>
+        public int LoopCount { get; private set; }
+        /// <summary>
         /// Gets or sets the name with which the element can be referenced.
         /// </summary>
         public virtual string Name 
@@ -434,20 +448,6 @@ namespace Quic
         /// </summary>
         [NotQuicProperty]
         public Element ParentElement { get; set; }
-        /// <summary>
-        /// Gets or sets the number of times this element will call its Render method.
-        /// Default is 1
-        /// </summary>
-        public int Repeat 
-        {
-            get { return repeat; }
-            set { repeat = value; }
-        }
-        /// <summary>
-        /// Gets or the number of times this element has called its Render method.
-        /// Default is 1
-        /// </summary>
-        public int RepeatCount { get; private set; }
 
         /// <summary>
         /// Gets the line number of the element

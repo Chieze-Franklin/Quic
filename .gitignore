@@ -1,0 +1,5 @@
+# Ignore articles
+Articles/
+
+# Ignore tests
+Quic.App/Tests/

@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 
+<!DOCTYPE html
+[
+  <!ENTITY fsmi "First SubMenu Item" >
+  <!ENTITY page SYSTEM "page.xml" >
+]>
+
 <html xmlns="..\..\Quic.Bootstrap\bin\Release\Quic.Bootstrap.dll"
       xmlns:core="..\..\Quic.Core\bin\Release\Quic.Core.dll"
       xmlns:ColorProvider="..\..\Quic.Core\bin\Release\Quic.Core.dll:ColorProvider"
@@ -28,7 +34,7 @@
       ?>
       <Menu Text="Awesome Menu" Collapsible="true" Theme="dark" Position="fixedtop">
         
-        <MI Link="" GlyphIcon="thumbs-up">First SubMenu Item</MI>
+        <MI Link="" GlyphIcon="thumbs-up">&fsmi;</MI>
         <MI Link="">{@sp Second SubMenu Item}</MI>
         <MI Link="">{StringProvider Third SubMenu Item}</MI>
         <Divider />
@@ -505,17 +511,17 @@
         <TextBox IsFormControl="true" />
         <Addon><Check /></Addon>
       </InputGroup>
-      <Button Repeat="3">{String {$RepeatCount}}</Button>
-      <Button Repeat="3" Text="{String {$RepeatCount}}" />
-      <Button Repeat="3">{?String {$RepeatCount}}</Button>
-      <Button Repeat="3" Text="{?String {$RepeatCount}}" />
+      <Button Loop="3">{String {$LoopCount}}</Button>
+      <Button Loop="3" Text="{String {$LoopCount}}" />
+      <Button Loop="3">{?String {$LoopCount}}</Button>
+      <Button Loop="3" Text="{?String {$LoopCount}}" />
       <InputGroup InputSize="lg">
         <Addon><Button Text="Go!" /></Addon>
         <TextBox IsFormControl="true" />
         <Addon><SplitButton Text="Split" DropStyle="up">
           
-            <MI Repeat="3">{?String {$RepeatCount}}</MI>
-            <MI Repeat="3">Repeat 3 times</MI>
+            <MI Loop="3">{?String {$LoopCount}}</MI>
+            <MI Loop="3">Repeat 3 times</MI>
           
         </SplitButton></Addon>
       </InputGroup>

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{521AE38B-7DE9-4C6C-847A-455AC415FF5A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Quic.App</RootNamespace>
+    <AssemblyName>Quic.App</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="QuicBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="QuicBar.resx">
+      <DependentUpon>QuicBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close.png" />
+    <None Include="Resources\Close2.png" />
+    <None Include="Resources\Maximize.png" />
+    <None Include="Resources\Maximize2.png" />
+    <None Include="Resources\Minimize.png" />
+    <None Include="Resources\Minimize2.png" />
+    <None Include="Resources\Restore.png" />
+    <None Include="Resources\Restore2.png" />
+    <None Include="Resources\Icon.png" />
+    <None Include="Resources\NotifNormal.png" />
+    <None Include="Resources\NotifNormal2.png" />
+    <None Include="Resources\Play.png" />
+    <None Include="Resources\Play2.png" />
+    <None Include="Resources\BrowseFile.png" />
+    <None Include="Resources\BrowseFile2.png" />
+    <None Include="Resources\BrowseFolder.png" />
+    <None Include="Resources\BrowseFolder2.png" />
+    <None Include="Resources\NotifError.png" />
+    <None Include="Resources\NotifError2.png" />
+    <None Include="Resources\NotifInfo.png" />
+    <None Include="Resources\NotifInfo2.png" />
+    <None Include="Resources\NotifQuestion.png" />
+    <None Include="Resources\NotifQuestion2.png" />
+    <None Include="Resources\Error.png" />
+    <None Include="Resources\Info.png" />
+    <None Include="Resources\NotifSuccess.png" />
+    <None Include="Resources\NotifSuccess2.png" />
+    <None Include="Resources\Question.png" />
+    <None Include="Resources\Success.png" />
+    <None Include="Resources\Warning.png" />
+    <None Include="Resources\NotifWarning.png" />
+    <None Include="Resources\NotifWarning2.png" />
+    <None Include="Resources\Icon.ico" />
+    <Content Include="Icon.ico" />
+    <Content Include="Tests\ed.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Tests\sample1.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="_Notes\Article.txt" />
+    <Content Include="_Notes\ToDo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Quic\Quic.csproj">
+      <Project>{ebceb7b8-e45c-40de-be43-00d150b9bf3f}</Project>
+      <Name>Quic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

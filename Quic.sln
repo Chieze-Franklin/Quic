@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quic.Core", "Quic.Core\Quic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quic.Ed", "Quic.Ed\Quic.Ed.csproj", "{65A27B8F-0AA4-487B-9112-E79922E382A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quic.App.CLI", "Quic.App.CLI\Quic.App.CLI.csproj", "{B0092054-C0E1-42BA-B9CE-18E000E83C15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{65A27B8F-0AA4-487B-9112-E79922E382A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65A27B8F-0AA4-487B-9112-E79922E382A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65A27B8F-0AA4-487B-9112-E79922E382A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0092054-C0E1-42BA-B9CE-18E000E83C15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0092054-C0E1-42BA-B9CE-18E000E83C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0092054-C0E1-42BA-B9CE-18E000E83C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0092054-C0E1-42BA-B9CE-18E000E83C15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

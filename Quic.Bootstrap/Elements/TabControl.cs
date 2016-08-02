@@ -91,7 +91,7 @@ public class TabControl : BootstrapContainerElement
     /// <summary>
     /// Gets or sets the nav type
     /// </summary>
-    public new NavType Type
+    public NavType Type
     {
         get { return navType; }
         set

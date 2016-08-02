@@ -57,7 +57,7 @@ namespace Quic
 
                 XElement rootTag = xDoc.Root;
                 if(rootTag == null || rootTag.Name.LocalName != "html")
-                    throw new QuicException("Document does not contain a root <Quic> tag.", filePath);
+                    throw new QuicException("Document does not contain a root <html> tag.", filePath);
 
                 XAttribute attri = rootTag.Attribute("AllowUnknownAttributes");
                 if (attri != null)
